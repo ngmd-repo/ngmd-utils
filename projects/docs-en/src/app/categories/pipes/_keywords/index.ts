@@ -1,0 +1,35 @@
+import { NgDocGlobalKeyword } from '@ng-doc/core';
+
+import { makeModuleKeywords } from '../../../../common/handlers';
+
+export const PipesKeywords: Record<string, NgDocGlobalKeyword> = makeModuleKeywords('/pipes', [
+  'AffixPipe',
+  'ConditionPipe',
+  'CurrencySymbolPipe',
+  'DefaultValuePipe',
+  'DefinedPipe',
+  'EndsWithPipe',
+  'EqualPipe',
+  'ExcludePropertiesPipe',
+  'ExistPipe',
+  'FilterPipe',
+  'IncludesPipe',
+  'JsTypePipe',
+  'MapPipe',
+  'NotDefinedPipe',
+  'NotEqualPipe',
+  'NotExistPipe',
+  'NumberTransformPipe',
+  'PickPipe',
+  'PickMapPipe',
+  'PluckPipe',
+  'RangePipe',
+  'ReplacePipe',
+  'SanitizerPipe',
+  'SplitStringPipe',
+  'StringLimitPipe',
+  'SymbolLimit',
+  'TagReplacerPipe',
+  'TypeParserPipe',
+  'WrapToArrayPipe',
+]);

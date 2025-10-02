@@ -1,0 +1,10 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "../../tsconfig.spec.json",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "esModuleInterop": true
+  },
+  "include": ["./**/*.spec.ts", "./**/*.d.ts"],
+  "exclude": ["./src/test.ts"]
+}

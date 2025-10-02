@@ -1,0 +1,184 @@
+/* stylelint-disable color-function-notation */
+
+/* You can add global styles to this file, and also import other style files */
+
+ng-doc-expander {
+  overflow: hidden;
+
+  ng-doc-sidebar-item {
+    ng-doc-dot + span {
+      .ng-doc-text {
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+ng-doc-page-link {
+  code {
+    color: var(--ng-doc-link-color) !important;
+    background: color-mix(in srgb, var(--ng-doc-link-color) 15%, transparent) !important;
+  }
+}
+
+.ng-doc-sidenav {
+  width: 324px !important;
+}
+
+.ng-doc-sidenav-content {
+  padding-left: 40px !important;
+}
+
+.ng-doc-sidebar-category-children {
+  ng-doc-sidebar-item {
+    .ng-doc-sidebar-link {
+      display: flex;
+      padding-inline: 50px 0 !important;
+    }
+  }
+}
+
+p.ngde {
+  font-size: 16px;
+}
+
+ng-doc-navbar {
+  .ng-doc-navbar-left h3 {
+    display: flex;
+    align-items: center;
+
+    width: 200px;
+
+    font-size: 21px;
+
+    background-image: linear-gradient(92deg, #a126f3, #ffa82e);
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.ng-doc-toc {
+  li > a {
+    word-break: unset !important;
+  }
+}
+
+.ng-doc-toc-container {
+  --ng-doc-toc-width: 300px;
+}
+
+[error] {
+  --ng-doc-text: #ff5959;
+  --ng-doc-link-color: #ff5959;
+  --ng-doc-inline-code-color: #ff5959;
+  --ng-doc-inline-code-background: #ff5959;
+
+  color: #ff5959;
+}
+
+[warning] {
+  --ng-doc-text: #ff9f1a;
+  --ng-doc-link-color: #ff9f1a;
+  --ng-doc-inline-code-color: #ff9f1a;
+  --ng-doc-inline-code-background: #ff9f1a;
+
+  color: #ff9f1a;
+}
+
+[success] {
+  --ng-doc-text: #00b74a;
+  --ng-doc-link-color: #00b74a;
+  --ng-doc-inline-code-color: #00b74a;
+  --ng-doc-inline-code-background: #00b74a;
+
+  color: #00b74a;
+}
+
+[info] {
+  --ng-doc-text: #1558d6;
+  --ng-doc-link-color: #1558d6;
+  --ng-doc-inline-code-color: #1558d6;
+  --ng-doc-inline-code-background: #1558d6;
+
+  color: #1558d6;
+}
+
+.tag {
+  display: inline-block;
+
+  padding: 2px 5px;
+
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+
+  background: color-mix(in srgb, currentcolor 15%, transparent) !important;
+  border-radius: 4px;
+}
+
+.icon-gap {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+[small] {
+  font-size: 12px !important;
+}
+
+.demos {
+  display: flex;
+  gap: 40px;
+
+  .checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    order: 1;
+  }
+
+  .control {
+    flex-grow: 1;
+  }
+}
+
+.separator {
+  display: block;
+  margin-bottom: 60px;
+}
+
+:root[assets-theme-mode='dark'] {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &[headinglink] {
+      color: white !important;
+    }
+  }
+
+  .ng-doc-root-wrapper,
+  .ng-doc-demo-container,
+  ng-doc-sidebar {
+    background-color: #222224 !important;
+  }
+
+  ng-doc-sidebar-item {
+    a:not(.active, :hover) {
+      span > span {
+        color: white !important;
+      }
+    }
+  }
+
+  .ng-doc-sidebar-category-button:not(:hover) {
+    .ng-doc-sidebar-category {
+      span > span + span {
+        color: white !important;
+      }
+    }
+  }
+}

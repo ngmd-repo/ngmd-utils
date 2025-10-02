@@ -1,0 +1,15 @@
+<div class="test">
+  <div class="actions">
+    <button (click)="setState()">Set State</button>
+    <button (click)="setState1()">Set State 1</button>
+    <button (click)="toggleShow()">Hide/show content</button>
+  </div>
+  <hr />
+  <div>
+    <p>editModalVisibleState: {{ state.editModalVisibleState() }}</p>
+    <p>isUserActive: {{ state.isUserActive() }}</p>
+  </div>
+  @if (isShow()) {
+    <ng-state-child />
+  }
+</div>

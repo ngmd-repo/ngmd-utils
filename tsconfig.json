@@ -1,0 +1,45 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "strictNullChecks": false,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "es2020",
+    "paths": {
+      "@env": [
+        "src/environments/index.ts"
+      ],
+      "@ngmd/utils": ["projects/utils"],
+      "@ngmd/utils/*": ["projects/utils/*"],
+      "@ng-doc/generated": ["projects/docs/ng-doc/docs/index.ts"],
+      "@ng-doc/generated/*": ["projects/docs/ng-doc/docs/*"],
+      "@docs-core/*": ["projects/docs/src/app/core/*"],
+      "@ng-doc-en/generated": ["projects/docs-en/ng-doc/docs-en/index.ts"],
+      "@ng-doc-en/generated/*": ["projects/docs-en/ng-doc/docs-en/*"],
+      "@docs-core-en/*": ["projects/docs-en/src/app/core/*"],
+      "@data/*": ["src/app/data/*"]
+    },
+    "lib": ["dom", "es2022"],
+    "useDefineForClassFields": false
+  },
+  "angularCompilerOptions": {
+    "types": ["node"],
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

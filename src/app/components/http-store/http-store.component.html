@@ -1,0 +1,16 @@
+<div class="root">
+  <div class="actions">
+    <button (click)="toggle()">Hide/Show All</button>
+    <button (click)="toggle('one')">Hide/Show One</button>
+    <button (click)="toggle('two')">Hide/Show Two</button>
+  </div>
+  <hr />
+  <div class="components">
+    @if (isShowOne()) {
+      <ng-http-store-child-one />
+    }
+    @if (isShowTwo()) {
+      <ng-http-store-child-two />
+    }
+  </div>
+</div>

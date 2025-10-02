@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "md-utils"
+  },
+  "targets": {
+    "md-utils": {
+      "hosting": {
+        "docs": [
+          "md-utils"
+        ],
+        "docs-en": [
+          "md-utils-en"
+        ]
+      }
+    }
+  }
+}

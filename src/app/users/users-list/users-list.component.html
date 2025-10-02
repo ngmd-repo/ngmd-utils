@@ -1,0 +1,22 @@
+@if (getUsers$.loading()) {
+  <h1>Loading</h1>
+} @else {
+  <div>
+    <p>Pagination</p>
+    <button (click)="pag('minus')">Minus page</button>
+    <button (click)="pag('plus')">Plus page</button>
+  </div>
+  @for (user of getUsers$.value(); track $index) {
+    <div>
+      <div>
+        <p>Info</p>
+        <div (click)="navigateToUserDetails(user.id)">{{ user.username }} {{ user.id }}</div>
+      </div>
+      <div>
+        <p>Actions</p>
+        <button (click)="deleteUser(user.id)">Delete</button>
+        <button (click)="setUserStatus(user.id, 'Disabled')">Edit</button>
+      </div>
+    </div>
+  }
+}

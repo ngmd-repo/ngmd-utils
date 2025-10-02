@@ -1,0 +1,7 @@
+<button (click)="getUser()">getUser</button>
+<button (click)="getUser(); hide.emit()">getUser with</button>
+<button (click)="hide.emit()">Hide</button>
+
+@if (this.usersApiHub.getUser.value()) {
+  {{ this.usersApiHub.getUser.value().id }}
+}

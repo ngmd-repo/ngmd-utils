@@ -1,0 +1,9 @@
+<p>cache works!</p>
+<div class="actions">
+  <button (click)="toggleShow()">Hide/Show</button>
+</div>
+@if (isShow()) {
+  <ng-cache-one />
+  <ng-cache-two />
+  <ng-cache-three />
+}

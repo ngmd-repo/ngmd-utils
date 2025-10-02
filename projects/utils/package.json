@@ -1,0 +1,29 @@
+{
+  "name": "@ngmd/utils",
+  "version": "0.0.3",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "typescript",
+    "utils",
+    "@ngmd"
+  ],
+  "author": {
+    "email": "sxemax1@gmail.com",
+    "name": "Maxim Demidov"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "contributors": [],
+  "peerDependencies": {
+    "@angular/cdk": ">=20.0.0",
+    "@angular/common": ">=20.0.0",
+    "@angular/core": ">=20.0.0",
+    "@angular/ssr": ">=20.0.0",
+    "rxjs": "~7.8.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

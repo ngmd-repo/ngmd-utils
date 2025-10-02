@@ -1,0 +1,15 @@
+<div class="test">
+  <div class="actions">
+    <button (click)="setStore()">Set Store</button>
+    <button (click)="toggleShow()">Hide/show content</button>
+  </div>
+  <hr />
+  <div>
+    <p>Array: {{ store.users() }}</p>
+    <p>Object: {{ store.user() }}</p>
+  </div>
+
+  @if (isShow()) {
+    <ng-store-child />
+  }
+</div>

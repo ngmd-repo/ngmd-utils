@@ -1,0 +1,20 @@
+<h1>Child</h1>
+<div class="actions">
+  <h4>Actions</h4>
+  <div class="btns">
+    <button (click)="toggleShow()">Hide/Show</button>
+    <!-- <button (click)="disconnectHub()">Disconnect HUB</button>
+    <button (click)="abortHub()">Abort HUB</button>
+    <button (click)="clearHub()">Clear HUB</button>
+    <button (click)="resetHub()">Reset HUB</button>
+    <button (click)="destroyHub()">Destroy HUB</button> -->
+  </div>
+</div>
+@if (this.usersApiHub.getUser.value()) {
+  {{ this.usersApiHub.getUser.value()?.id }} 123
+}
+@if (isShow()) {
+  <div class="content">
+    <ng-requests-hub-one (hide)="toggleShow()" />
+  </div>
+}

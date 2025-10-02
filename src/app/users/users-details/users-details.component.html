@@ -1,0 +1,26 @@
+@if (getUser$.loading()) {
+  Loading...
+} @else {
+  <div>
+    <p>{{ getUser$.value().username }}{{ getUser$.value().id }}</p>
+  </div>
+  <button (click)="state.isUserEditVisible.set(true)">Show edit modal</button>
+  <button (click)="deleteUser()">Delete User</button>
+}
+
+@if (state.isUserEditVisible()) {
+  <div>
+    <p>Edit user</p>
+    <div>
+      @if (usersHub.patchUser$.loading()) {
+        <h3>Loading</h3>
+      }
+      <button
+        [disabled]="usersHub.patchUser$.loading()"
+        (click)="editUser(null)"
+      >
+        Edit User
+      </button>
+    </div>
+  </div>
+}

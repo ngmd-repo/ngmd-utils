@@ -1,0 +1,11 @@
+<div class="root">
+  <div class="actions">
+    <button (click)="toggleShow()">Hide/Show</button>
+  </div>
+  <div class="components">
+    {{ hub$.operatorUsers$.loading() }}
+  </div>
+  @if (isShow()) {
+    <ng-requests-items (hide)="toggleShow()" />
+  }
+</div>
