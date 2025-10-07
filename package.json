@@ -24,7 +24,8 @@
     "firebase:preview": "firebase emulators:start",
     "firebase:deploy": "npm run docs:build && firebase deploy --only hosting:docs",
     "firebase:en:deploy": "npm run docs:en:build && firebase deploy --only hosting:docs-en",
-    "firebase:deploy:all": "npm run docs:build && npm run docs:en:build && firebase deploy"
+    "firebase:deploy:all": "npm run docs:build && npm run docs:en:build && firebase deploy",
+    "prepare": "husky"
   },
   "private": true,
   "dependencies": {
@@ -53,6 +54,7 @@
     "@angular/build": "^20.2.2",
     "@angular/cli": "~20.2.2",
     "@angular/compiler-cli": "^20.2.4",
+    "@ngmd/git-flow": "~0.0.1",
     "@ngmd/linter": "~0.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^22.12.0",
