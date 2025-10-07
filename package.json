@@ -54,7 +54,7 @@
     "@angular/build": "^20.2.2",
     "@angular/cli": "~20.2.2",
     "@angular/compiler-cli": "^20.2.4",
-    "@ngmd/git-flow": "~0.0.1",
+    "@ngmd/git-flow": "~0.0.2",
     "@ngmd/linter": "~0.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^22.12.0",
