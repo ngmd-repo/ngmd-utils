@@ -8,6 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test:ci": "yarn run lib:test:coverage:ci",
+    "prepare": "husky",
     "-------LIBRARY-------": "",
     "lib:dev": "ng build utils --configuration=development",
     "lib:lint": "ng lint --project utils",
@@ -20,12 +21,13 @@
     "docs:build": "ng b docs",
     "docs:en:dev": "ng s docs-en",
     "docs:en:build": "ng b docs-en",
+    "docs:all:build": "npm run docs:build && npm run docs:en:build",
     "-------FIREBASE-------": "",
     "firebase:preview": "firebase emulators:start",
     "firebase:deploy": "npm run docs:build && firebase deploy --only hosting:docs",
     "firebase:en:deploy": "npm run docs:en:build && firebase deploy --only hosting:docs-en",
-    "firebase:deploy:all": "npm run docs:build && npm run docs:en:build && firebase deploy",
-    "prepare": "husky"
+    "firebase:all:deploy": "npm run docs:build && npm run docs:en:build && firebase deploy",
+    "firebase:ci:deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
