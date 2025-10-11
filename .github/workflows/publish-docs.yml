@@ -10,4 +10,4 @@ jobs:
     with:
       build-script: npm run docs:all:build
     secrets:
-      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_DEPLOY_TOKEN }}
