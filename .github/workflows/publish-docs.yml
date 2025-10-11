@@ -2,7 +2,7 @@ name: Publish Docs
 on:
   - push
 jobs:
-  publish-library:
+  publish-docs:
     permissions:
       id-token: write
       contents: read
