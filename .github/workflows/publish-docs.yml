@@ -1,8 +1,5 @@
 name: Publish Docs
-on:   
-  pull_request:
-    branches: [master]
-    types: [closed]
+on: [workflow_dispatch]
 jobs:
   publish-docs:
     permissions:
