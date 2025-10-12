@@ -1,12 +1,11 @@
 name: Publish Docs
-on:
-  - push
+on: [workflow_dispatch]
 jobs:
   publish-docs:
     permissions:
       id-token: write
       contents: read
-    uses: ngmd-repo/ngmd-pipelines/.github/workflows/firebase_deploy.yml@feature/pipelines
+    uses: ngmd-repo/ngmd-pipelines/.github/workflows/firebase_deploy.yml@v1
     with:
       build-script: npm run docs:all:build
     secrets:

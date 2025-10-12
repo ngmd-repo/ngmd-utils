@@ -1,6 +1,6 @@
 {
   "name": "@ngmd/utils",
-  "version": "0.0.4",
+  "version": "$(version)",
   "license": "MIT",
   "keywords": [
     "angular",
