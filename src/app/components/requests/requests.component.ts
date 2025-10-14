@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { ChangeDetectionStrategy, Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 import { IUser, TOperatorForkResponse } from '@data/users';
 import {
   ApiHub,
+  DeleteRequest,
   GetRequest,
   OperatorRequest,
   PatchRequest,
+  PostRequest,
   provideApiHub,
+  PutRequest,
   useApiHub,
   useGet,
   useOperator,
-  usePatch,
 } from '@ngmd/utils/http';
 import { forkJoin } from 'rxjs';
 
@@ -19,7 +22,6 @@ import { RequestsImports } from './imports';
 export class TestApiHub {
   public users: GetRequest<IUser[]> = useGet('@/users');
   public user: GetRequest<IUser> = useGet(`@/users/1`);
-  public patchUser$: PatchRequest<any, IUser> = usePatch('');
   public operatorUsers$: OperatorRequest<TOperatorForkResponse> = useOperator({
     operator: forkJoin({
       user: useGet<IUser>({
@@ -40,7 +42,13 @@ export class TestApiHub {
     provideApiHub(TestApiHub),
   ],
 })
-export class RequestsComponent implements OnInit {
+export class RequestsComponent {
+  private httpClient: HttpClient = inject(HttpClient);
+  public get$: GetRequest<IUser>;
+  public post$: PostRequest<any, IUser>;
+  public patch$: PatchRequest<any, IUser>;
+  public put$: PutRequest<any, IUser>;
+  public delete$: DeleteRequest;
   public isShow: WritableSignal<boolean> = signal(true);
   public toggleShow(): void {
     this.isShow.update(v => !v);
@@ -53,5 +61,5 @@ export class RequestsComponent implements OnInit {
     },
   });
 
-  ngOnInit(): void {}
+  private test(): void {}
 }

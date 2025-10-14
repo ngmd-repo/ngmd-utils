@@ -216,7 +216,7 @@ type CrudRequestMeta<
 ```ts
 type CrudRequestOptions = {
   urlOptions: UrlOptions,
-  requestOptions?: HttpClient.MethodOptions
+  requestOptions?: HttpRequestOptions<HttpClientMethod>
 }
 ```
 
@@ -225,7 +225,7 @@ type CrudRequestOptions = {
 | Name | Type | Required | Description |
 |----------|----------|----------|----------|
 | **urlOptions** | `UrlOptions` | `true` при наличии `urlOptions.params`, иначе `false` | [**`url`**](/http/classes/crud-request#работа-с-url) опции для выполнения запроса |
-| **requestOptions** | `HttpClient[MethodOptions]` | `false` | Параметр `options`, одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient` |
+| **requestOptions** | `HttpRequestOptions<HttpClientMethod>` | `false` | Параметр `options`, одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient` |
 
 ### UrlOptions
 
@@ -255,8 +255,41 @@ type RequestUrlOptions<T = UrlOptions> = {
 
 ```ts
 type HttpClientRequestOptions = {
-  requestOptions?: HttpClient.MethodOptions;
+  requestOptions?: HttpRequestOptions<HttpClientMethod>;
 };
+```
+
+### HttpClientMethod
+
+Содержит ключ одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`, с которыми работает `CrudRequestPage`
+
+```ts
+type HttpClientMethod = Extract<
+  HttpClient,
+  'delete' | 'get' | 'patch' | 'post' | 'put'
+>;
+```
+
+### HttpRequestOptions
+
+Содержит `options` одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`.
+
+```ts
+type HttpRequestOptions<T extends HttpClientMethod> = HttpClient<T>[requestOptions]
+```
+
+**Использование**
+
+```ts
+const get$: GetRequest<IUser> = useGet('example-url');
+const requestOptions: HttpRequestOptions<'get'> = {
+  observe: 'events',
+  reportProgress: true,
+};
+
+this.get$.request({ requestOptions }).subscribe(/**/)
+// or
+this.get$.send({ requestOptions });
 ```
 
 ### CrudSendOptions

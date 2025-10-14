@@ -1,6 +1,11 @@
 import { Observable, Subscription } from 'rxjs';
 
-import { PartialUrlOptions, RequestUrlOptions, TArgsWithBody } from '../../classes';
+import {
+  HttpClientMethodsOptions,
+  PartialUrlOptions,
+  RequestUrlOptions,
+  TArgsWithBody,
+} from '../../classes';
 import { CrudRequest } from '../../classes/crud/crud-request.class';
 import { PatchRequestOptions, PatchSendOptions } from './patch.request.types';
 
@@ -15,7 +20,11 @@ export class PatchRequest<
   public request(body: Body, opts?: PatchRequestOptions<Options>): Observable<Response> {
     const url: string = this.makeUrl((opts as RequestUrlOptions<Options>)?.urlOptions);
 
-    return this.http.patch<Response>(url, body, opts?.requestOptions);
+    return this.http.patch<Response>(
+      url,
+      body,
+      opts?.requestOptions as HttpClientMethodsOptions<'patch'>,
+    );
   }
 
   public send(
