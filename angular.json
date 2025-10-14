@@ -369,7 +369,7 @@
         "serve": {
           "builder": "@ng-doc/builder:dev-server",
           "options": {
-            "port": 4300
+            "port": 4400
           },
           "configurations": {
             "production": {
