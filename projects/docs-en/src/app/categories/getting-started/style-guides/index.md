@@ -10,26 +10,37 @@ This guide describes the main rules for writing code in SPA applications. It hel
 
 ### List of Rules  
 
-1. [Pages](/getting-started/style-guides#pages)
-2. [Modules](/getting-started/style-guides#modules)
-3. [Features](/getting-started/style-guides#features)
-4. [Components](/getting-started/style-guides#components)
-5. [Routes](/getting-started/style-guides#routes)
-6. [Interfaces](/getting-started/style-guides#interfaces)
-7. [Types](/getting-started/style-guides#types)
-8. [Enums](/getting-started/style-guides#enums)
-9. [Classes](/getting-started/style-guides#classes)
-10. [Models](/getting-started/style-guides#models)
-11. [API](/getting-started/style-guides#api)
-12. [Service](/getting-started/style-guides#service)
-13. [State](/getting-started/style-guides#state)
-14. [Actions](/getting-started/style-guides#actions)
-15. [Store](/getting-started/style-guides#store)
-16. [DB](/getting-started/style-guides#db)
-17. [Constants](/getting-started/style-guides#constants)
-18. [Handlers](/getting-started/style-guides#handlers)
-19. [Application](/getting-started/style-guides#application)
-20. [Libraries](/getting-started/style-guides#libraries)
+1. [General](/getting-started/style-guides#general)
+2. [Pages](/getting-started/style-guides#pages)
+3. [Modules](/getting-started/style-guides#modules)
+4. [Features](/getting-started/style-guides#features)
+5. [Components](/getting-started/style-guides#components)
+6. [Routes](/getting-started/style-guides#routes)
+7. [Interfaces](/getting-started/style-guides#interfaces)
+8. [Types](/getting-started/style-guides#types)
+9. [Enums](/getting-started/style-guides#enums)
+10. [Classes](/getting-started/style-guides#classes)
+11. [Models](/getting-started/style-guides#models)
+12. [API](/getting-started/style-guides#api)
+13. [Service](/getting-started/style-guides#service)
+14. [State](/getting-started/style-guides#state)
+15. [Actions](/getting-started/style-guides#actions)
+16. [Store](/getting-started/style-guides#store)
+17. [DB](/getting-started/style-guides#db)
+18. [Constants](/getting-started/style-guides#constants)
+19. [Handlers](/getting-started/style-guides#handlers)
+20. [Application](/getting-started/style-guides#application)
+21. [Libraries](/getting-started/style-guides#libraries)
+
+### General
+
+When creating any Angular project, before starting development, you must install:
+
+1. [`@ngmd/git-flow`](https://github.com/ngmd-repo/ngmd-git-flow) - library for standardization and validation of commit messages, branch names  
+2. [`@ngmd/linter`](https://github.com/ngmd-repo/ngmd-linter) - a library for standardizing the rules of writing code using eslint, tslint, stylelint, prettier
+
+> **NOTE**
+> Please note that each library has **cli** commands for automatically connecting project configuration files.
 
 ### Pages
  
