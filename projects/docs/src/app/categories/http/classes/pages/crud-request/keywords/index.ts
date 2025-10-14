@@ -14,6 +14,8 @@ export const HttpCrudRequestKeywords: Record<string, NgDocGlobalKeyword> = Objec
     'UrlOptions',
     'RequestUrlOptions',
     'HttpClientRequestOptions',
+    'HttpClientMethod',
+    'HttpRequestOptions',
     'CrudRequestMeta',
     'SendOptions',
     'SendOptionsPipe',

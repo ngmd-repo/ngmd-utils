@@ -1,6 +1,11 @@
 import { Observable, Subscription } from 'rxjs';
 
-import { PartialUrlOptions, RequestUrlOptions, TArgsWithBody } from '../../classes';
+import {
+  HttpClientMethodsOptions,
+  PartialUrlOptions,
+  RequestUrlOptions,
+  TArgsWithBody,
+} from '../../classes';
 import { CrudRequest } from '../../classes/crud/crud-request.class';
 import { PutRequestOptions, PutSendOptions } from './put.request.types';
 
@@ -15,7 +20,11 @@ export class PutRequest<
   public request(body: Body, opts?: PutRequestOptions<Options>): Observable<Response> {
     const url: string = this.makeUrl((opts as RequestUrlOptions<Options>)?.urlOptions);
 
-    return this.http.put<Response>(url, body, opts?.requestOptions);
+    return this.http.put<Response>(
+      url,
+      body,
+      opts?.requestOptions as HttpClientMethodsOptions<'put'>,
+    );
   }
 
   public send(

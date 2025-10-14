@@ -254,8 +254,41 @@ Used when calling the [`request`](/http/classes/api-request#request) and [`send`
 
 ```ts
 type HttpClientRequestOptions = {
-  requestOptions?: HttpClient.MethodOptions;
+  requestOptions?: HttpRequestOptions<HttpClientMethod>;
 };
+```
+
+### HttpClientMethod
+
+Contains the key of one of the **get**, **post**, **patch**, **put**, **delete** methods of the `HttpClient` class that `CrudRequestPage` works with
+
+```ts
+type HttpClientMethod = Extract<
+  HttpClient,
+  'delete' | 'get' | 'patch' | 'post' | 'put'
+>;
+```
+
+### HttpRequestOptions
+
+Contains the `options` of one of the **get**, **post**, **patch**, **put**, **delete** methods of the `HttpClient' class.
+
+```ts
+type HttpRequestOptions<T extends HttpClientMethod> = HttpClient<T>[requestOptions]
+```
+
+**Usage**
+
+```ts
+const get$: GetRequest<IUser> = useGet('example-url');
+const requestOptions: HttpRequestOptions<'get'> = {
+  observe: 'events',
+  reportProgress: true,
+};
+
+this.get$.request({ requestOptions }).subscribe(/**/)
+// or
+this.get$.send({ requestOptions });
 ```
 
 ### CrudSendOptions
