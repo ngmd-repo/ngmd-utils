@@ -502,7 +502,9 @@ Example of a correctly created service file belonging to a component:
 2. The state file must be stored at ***./state***
 
 3. File naming must follow these rules:
+
     3.1 If there is only one file - **index.ts**
+
     3.2 If more than one file -  **{kebab-case}.state.ts**
 
 4. Use the **{PascalCase}State** pattern for class naming
@@ -527,7 +529,9 @@ export class UsersState {
 2. The events file must be stored in the ***./actions*** folder
 
 3. File naming must follow these rules:
+
     3.1 If there is only one file - either **index.ts**
+
     3.2 If more than one file - **{kebab-case}.actions.ts**
 
 4. Use the **T{PascalCase}Actions** pattern for event list type naming
@@ -556,7 +560,9 @@ export const MODAL_ACTIONS = ActionsChannelToken<TModalActions>('MODAL'); // tok
 2. The storage file must be stored in the ***./store*** folder
 
 3. File naming must follow these rules:
+
     3.1 If there is only one file - **index.ts**
+
     3.2 If more than one file -  **{kebab-case}.store.ts**
 
 4. Use the **{PascalCase}Store** pattern for class naming
@@ -583,7 +589,9 @@ export class UsersStore {
 2. The data file must be stored at ***./db***
 
 3. File naming must follow these rules:
+
     3.1 If there is only one file - **index.ts**
+    
     3.2 If more than one file -  **{kebab-case}.db.ts**
 
 4. Use the **{PascalCase}DB** pattern for object naming 
