@@ -23,7 +23,7 @@ export class PatchRequest<
     return this.http.patch<Response>(
       url,
       body,
-      opts?.requestOptions as HttpClientMethodsOptions<'patch'>,
+      opts?.httpOptions as HttpClientMethodsOptions<'patch'>,
     );
   }
 

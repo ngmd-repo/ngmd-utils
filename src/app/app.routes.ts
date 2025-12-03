@@ -17,14 +17,14 @@ export const AppRoutes: Routes = [
   //     },
   //   ],
   // },
-  {
-    path: '',
-    redirectTo: '/1',
-    pathMatch: 'full',
-  },
-  {
-    path: ':id',
-    component: RequestsComponent,
-    title: 'Main',
-  },
+  // {
+  //   path: '',
+  //   redirectTo: '/1',
+  //   pathMatch: 'full',
+  // },
+  // {
+  //   path: ':id',
+  //   component: RequestsComponent,
+  //   title: 'Main',
+  // },
 ];

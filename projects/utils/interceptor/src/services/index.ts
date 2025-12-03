@@ -5,7 +5,7 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Inject, Injectable, Optional } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { toHttpHeaders } from '@ngmd/utils/http';
 import { Observable } from 'rxjs';
 
@@ -29,27 +29,21 @@ type TRequestMetaData = Partial<{
 
 @Injectable()
 export class RequestsInterceptor implements HttpInterceptor {
-  constructor(
-    @Optional()
-    @Inject(INTERCEPTOR_DEFAULT_CONFIG)
-    private defaultConfig: InterceptorDefaultConfig | null,
-
-    @Optional()
-    @Inject(INTERCEPTOR_TAGS_MAP_HANDLER)
-    private tagMapHandler: InterceptorTagsUrlsHandler | null = null,
-
-    @Optional()
-    @Inject(INTERCEPTOR_TAGS_MAP)
-    private tagsMap: InterceptorTagsMap | null = null,
-
-    @Optional()
-    @Inject(INTERCEPTOR_HEADERS)
-    private headers: InterceptorHeaders | null = null,
-
-    @Optional()
-    @Inject(INTERCEPTOR_HEADERS_HANDLER)
-    private headersHandler: InterceptorHeadersHandler | null = null,
-  ) {}
+  private defaultConfig: InterceptorDefaultConfig | null = inject(INTERCEPTOR_DEFAULT_CONFIG, {
+    optional: true,
+  });
+  private tagMapHandler: InterceptorTagsUrlsHandler | null = inject(INTERCEPTOR_TAGS_MAP_HANDLER, {
+    optional: true,
+  });
+  private tagsMap: InterceptorTagsMap | null = inject(INTERCEPTOR_TAGS_MAP, {
+    optional: true,
+  });
+  private headers: InterceptorHeaders | null = inject(INTERCEPTOR_HEADERS, {
+    optional: true,
+  });
+  private headersHandler: InterceptorHeadersHandler | null = inject(INTERCEPTOR_HEADERS_HANDLER, {
+    optional: true,
+  });
 
   public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const isCanModification: boolean = !req.context.get(SKIP_REQUEST_MODIFICATION);
@@ -95,7 +89,9 @@ export class RequestsInterceptor implements HttpInterceptor {
       tagsMap[API_TAG] = API_HOST;
     }
 
-    const tagEntry = Object.entries(tagsMap).find(([tag]) => url.startsWith(`${tag}/`));
+    const tagEntry = Object.entries(tagsMap).find(
+      ([tag]) => url.startsWith(`${tag}/`) || url === tag,
+    );
 
     if (tagEntry) {
       const [hostTag, replacement] = tagEntry;

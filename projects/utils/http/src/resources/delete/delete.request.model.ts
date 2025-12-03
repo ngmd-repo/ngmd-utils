@@ -20,10 +20,7 @@ export class DeleteRequest<
   public request(opts?: DeleteRequestOptions<Options>): Observable<Response> {
     const url: string = this.makeUrl((opts as RequestUrlOptions<Options>)?.urlOptions);
 
-    return this.http.delete<Response>(
-      url,
-      opts?.requestOptions as HttpClientMethodsOptions<'delete'>,
-    );
+    return this.http.delete<Response>(url, opts?.httpOptions as HttpClientMethodsOptions<'delete'>);
   }
 
   public send(

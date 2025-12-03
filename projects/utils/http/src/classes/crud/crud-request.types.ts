@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { Injector } from '@angular/core';
@@ -22,7 +23,7 @@ export type SendOptions<Response> = {
 };
 
 export type CrudSendOptions<
-  RequestType extends keyof HttpClientRequestOptionsMap,
+  RequestType extends keyof HttpOptionsMap,
   Response,
   Options extends PartialUrlOptions,
 > = HttpClientRequestOptions<RequestType> &
@@ -75,7 +76,7 @@ export type HttpRequestOptions<T extends HttpClientMethod> = HttpOverrideOptions
   Omit<HttpClientMethodsOptions<T>, keyof HttpOverrideOptionsType>;
 
 // ! I had to do this because Parameters overload Parameters<HttpClient['get']>[1], etc. returns only one value for the responseType and observe fields.
-export type HttpClientRequestOptionsMap = {
+export type HttpOptionsMap = {
   get: HttpRequestOptions<'get'>;
   post: HttpRequestOptions<'post'>;
   patch: HttpRequestOptions<'patch'>;
@@ -87,12 +88,12 @@ export type RequestUrlOptions<T extends PartialUrlOptions = PartialUrlOptions> =
   urlOptions: PickUrlOptions<T>;
 };
 
-export type HttpClientRequestOptions<Type extends keyof HttpClientRequestOptionsMap> = {
-  requestOptions?: HttpClientRequestOptionsMap[Type];
+export type HttpClientRequestOptions<Type extends keyof HttpOptionsMap> = {
+  httpOptions?: HttpOptionsMap[Type];
 };
 
 export type CrudRequestOptions<
-  T extends keyof HttpClientRequestOptionsMap,
+  T extends keyof HttpOptionsMap,
   Options extends PartialUrlOptions,
 > = HttpClientRequestOptions<T> & TUrlOptions<Options>;
 

@@ -1,8 +1,3 @@
-const base = require('@ngmd/linter/prettier');
+const prettierConfig = require('@ngmd/linter/prettier');
 
-module.exports = {
-  ...base,
-  overrides: [
-    ...base.overrides,
-  ],
-};
+module.exports = prettierConfig;

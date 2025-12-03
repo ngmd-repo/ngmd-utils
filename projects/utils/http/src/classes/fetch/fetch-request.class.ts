@@ -30,7 +30,7 @@ export abstract class FetchRequest<
   public request(opts?: FetchRequestOptions<Options>): Observable<Response> {
     const url: string = this.makeUrl((opts as RequestUrlOptions<Options>)?.urlOptions);
 
-    return this.http.get<Response>(url, opts?.requestOptions as HttpClientMethodsOptions<'get'>);
+    return this.http.get<Response>(url, opts?.httpOptions as HttpClientMethodsOptions<'get'>);
   }
 
   public send(

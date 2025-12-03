@@ -1,14 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import {
-  CrudSendOptions,
-  HttpClientRequestOptionsMap,
-  PartialUrlOptions,
-  TUrlOptions,
-} from '../../classes';
+import { CrudSendOptions, HttpOptionsMap, PartialUrlOptions, TUrlOptions } from '../../classes';
 
 export type DeleteRequestOptions<Options extends PartialUrlOptions = null, Body = null> = Pick<
   DeleteSendOptions<Options, null, Body>,
-  'requestOptions'
+  'httpOptions'
 > &
   TUrlOptions<Options>;
 
@@ -17,5 +12,5 @@ export type DeleteSendOptions<
   Response = null,
   Body = null,
 > = CrudSendOptions<'delete', Response, Options> & {
-  requestOptions?: HttpClientRequestOptionsMap['delete'] & { body?: Body };
+  httpOptions?: HttpOptionsMap['delete'] & { body?: Body };
 };

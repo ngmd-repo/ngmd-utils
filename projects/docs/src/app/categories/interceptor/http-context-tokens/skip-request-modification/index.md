@@ -21,7 +21,7 @@ export class ExampleComponent {
   private getUsers$: GetRequest<IUser[]> = useGet({
     url: 'https://fakestoreapi.com/users',
     force: {
-      requestOptions: {
+      httpOptions: {
         context: toHttpContext(SKIP_REQUEST_MODIFICATION, true),
       },
     },

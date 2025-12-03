@@ -216,7 +216,7 @@ type CrudRequestMeta<
 ```ts
 type CrudRequestOptions = {
   urlOptions: UrlOptions,
-  requestOptions?: HttpRequestOptions<HttpClientMethod>
+  httpOptions?: HttpRequestOptions<HttpClientMethod>
 }
 ```
 
@@ -225,7 +225,7 @@ type CrudRequestOptions = {
 | Name | Type | Required | Description |
 |----------|----------|----------|----------|
 | **urlOptions** | `UrlOptions` | `true` при наличии `urlOptions.params`, иначе `false` | [**`url`**](/http/classes/crud-request#работа-с-url) опции для выполнения запроса |
-| **requestOptions** | `HttpRequestOptions<HttpClientMethod>` | `false` | Параметр `options`, одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient` |
+| **httpOptions** | `HttpRequestOptions<HttpClientMethod>` | `false` | Параметр `options`, одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient` |
 
 ### UrlOptions
 
@@ -249,13 +249,13 @@ type RequestUrlOptions<T = UrlOptions> = {
 
 ### HttpClientRequestOptions
 
-Содержит поле **requestOptions**, которое равно типу параметра `options` одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`.
+Содержит поле **httpOptions**, которое равно типу параметра `options` одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`.
 
 Используется при вызове методов [`request`](/http/classes/api-request#request) и [`send`](/http/classes/api-request#send) у наследников класса класса `*CrudRequestPage`
 
 ```ts
 type HttpClientRequestOptions = {
-  requestOptions?: HttpRequestOptions<HttpClientMethod>;
+  httpOptions?: HttpRequestOptions<HttpClientMethod>;
 };
 ```
 
@@ -275,21 +275,21 @@ type HttpClientMethod = Extract<
 Содержит `options` одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`.
 
 ```ts
-type HttpRequestOptions<T extends HttpClientMethod> = HttpClient<T>[requestOptions]
+type HttpRequestOptions<T extends HttpClientMethod> = HttpClient<T>[httpOptions]
 ```
 
 **Использование**
 
 ```ts
 const get$: GetRequest<IUser> = useGet('example-url');
-const requestOptions: HttpRequestOptions<'get'> = {
+const httpOptions: HttpRequestOptions<'get'> = {
   observe: 'events',
   reportProgress: true,
 };
 
-this.get$.request({ requestOptions }).subscribe(/**/)
+this.get$.request({ httpOptions }).subscribe(/**/)
 // or
-this.get$.send({ requestOptions });
+this.get$.send({ httpOptions });
 ```
 
 ### CrudSendOptions
@@ -302,7 +302,7 @@ this.get$.send({ requestOptions });
 type CrudSendOptions<Response> = {
   urlOptions: UrlOptions,
   connect?: ConnectionOptions<Response>,
-  requestOptions?: HttpClient.MethodOptions,
+  httpOptions?: HttpClient.MethodOptions,
   sendOptions?: {
     stream: SendOptionsPipe<Response>
   }
@@ -316,7 +316,7 @@ type CrudSendOptions<Response> = {
 | **urlOptions** | `UrlOptions` | `true` при наличии `urlOptions.params`, иначе `false` | [**`url`**](/http/classes/crud-request#работа-с-url) опции для выполнения запроса |
 | **connect** | `api-req-connect-options` | `false` | Объект, с обработчиками результатов запроса. [Подробности](/http/classes/api-request#connectionoptions) |
 | **sendOptions** | `SendOptions<Response>` | `false` | Позволяет встраивать цепочку `pipe` из `rxjs` в процесс выполнения запроса |
-| **requestOptions** | `HttpClient[MethodOptions]` | `false` | Параметр `options`, одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`  |
+| **httpOptions** | `HttpClient[MethodOptions]` | `false` | Параметр `options`, одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`  |
 
 
 ### SendOptions

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/dot-notation */
 
 import { DestroyRef, inject, Signal, untracked } from '@angular/core';
-import { TExtractKeysByValue, TRequiredArray } from '@ngmd/utils/types';
+import { TExtractKeys, TExtractKeysByValue, TRequiredArray } from '@ngmd/utils/types';
 
 import { ApiRequest } from '../classes/api-request.class';
 import { FetchRequest } from '../classes/fetch';
@@ -41,7 +41,7 @@ export class ApiHubManager<T extends TApiHub<T>> {
 
   private executeOperation(
     keys: Array<keyof T>,
-    operation: Extract<keyof ApiRequest, 'abort' | 'clear' | 'destroy' | 'reset'>,
+    operation: TExtractKeys<ApiRequest, 'abort' | 'clear' | 'destroy' | 'reset'>,
   ): void {
     keys = keys.length ? keys : (Object.keys(this.hub) as Array<keyof T>);
 

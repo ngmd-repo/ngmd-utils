@@ -1,20 +1,5 @@
-const { useAggregatorConfigs } = require('@ngmd/linter/handlers');
+const { useAggregatorConfigs } = require('@ngmd/linter/eslint');
 
 module.exports = useAggregatorConfigs({
-  overrides: [
-    {
-      files: ['**/*.ts'], // расширение файлов, для которых предназначены перечисляемые ниже правила (это важно указывать,
-      // потому что без указания этого массива линтер не поймет, какие ему нужны плагины для работы перечисляемых ниже
-      // правил. Например, для добавления или переопределения правил '@angular-eslint/template'
-      // необходимо указывать '**/*/html', и тогда линтер подхватит нужный ему плагин, который уже установился
-      // вместе с установкой этой библиотеки (в данном случае
-      // плагин 'template', который работает с html-шаблонами Ангуляра).
-
-      rules: {
-        // сами переопределямые правила:
-        '@typescript-eslint/no-unnecessary-type-assertion': 'off',
-        'import/no-default-export': 'off',
-      },
-    },
-  ],
+  tsConfig: 'tsconfig.json',
 });

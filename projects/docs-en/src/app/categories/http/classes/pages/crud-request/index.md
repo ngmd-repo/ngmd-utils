@@ -215,7 +215,7 @@ This type is used when creating requests inheriting from the `*CrudRequestPage` 
 ```ts
 type CrudRequestOptions = {
   urlOptions: UrlOptions,
-  requestOptions?: HttpClient.MethodOptions
+  httpOptions?: HttpClient.MethodOptions
 }
 ```
 
@@ -224,7 +224,7 @@ type CrudRequestOptions = {
 | Name | Type | Required | Description |
 |----------|----------|----------|----------|
 | **urlOptions** | `UrlOptions` | `true` if `urlOptions.params` is present, otherwise `false` | [**`url`**](/http/classes/crud-request#working-with-url) options for executing the request |
-| **requestOptions** | `HttpClient[MethodOptions]` | `false` | The `options` parameter of one of the **get**, **post**, **patch**, **put**, **delete** methods of the `HttpClient` class |
+| **httpOptions** | `HttpClient[MethodOptions]` | `false` | The `options` parameter of one of the **get**, **post**, **patch**, **put**, **delete** methods of the `HttpClient` class |
 
 ### UrlOptions
 
@@ -248,13 +248,13 @@ type RequestUrlOptions<T = UrlOptions> = {
 
 ### HttpClientRequestOptions
 
-Contains the **requestOptions** field, which is the type of the `options` parameter of one of the **get**, **post**, **patch**, **put**, **delete** methods of the `HttpClient` class.
+Contains the **httpOptions** field, which is the type of the `options` parameter of one of the **get**, **post**, **patch**, **put**, **delete** methods of the `HttpClient` class.
 
 Used when calling the [`request`](/http/classes/api-request#request) and [`send`](/http/classes/api-request#send) methods of classes inheriting from the `*CrudRequestPage` class
 
 ```ts
 type HttpClientRequestOptions = {
-  requestOptions?: HttpRequestOptions<HttpClientMethod>;
+  httpOptions?: HttpRequestOptions<HttpClientMethod>;
 };
 ```
 
@@ -274,21 +274,21 @@ type HttpClientMethod = Extract<
 Contains the `options` of one of the **get**, **post**, **patch**, **put**, **delete** methods of the `HttpClient' class.
 
 ```ts
-type HttpRequestOptions<T extends HttpClientMethod> = HttpClient<T>[requestOptions]
+type HttpRequestOptions<T extends HttpClientMethod> = HttpClient<T>[httpOptions]
 ```
 
 **Usage**
 
 ```ts
 const get$: GetRequest<IUser> = useGet('example-url');
-const requestOptions: HttpRequestOptions<'get'> = {
+const httpOptions: HttpRequestOptions<'get'> = {
   observe: 'events',
   reportProgress: true,
 };
 
-this.get$.request({ requestOptions }).subscribe(/**/)
+this.get$.request({ httpOptions }).subscribe(/**/)
 // or
-this.get$.send({ requestOptions });
+this.get$.send({ httpOptions });
 ```
 
 ### CrudSendOptions
@@ -301,7 +301,7 @@ Used when calling the `send` method
 type CrudSendOptions<Response> = {
   urlOptions: UrlOptions,
   connect?: ConnectionOptions<Response>,
-  requestOptions?: HttpClient.MethodOptions,
+  httpOptions?: HttpClient.MethodOptions,
   sendOptions?: {
     stream: SendOptionsPipe<Response>
   }
@@ -315,7 +315,7 @@ type CrudSendOptions<Response> = {
 | **urlOptions** | `UrlOptions` | `true` if `urlOptions.params` is present, otherwise `false` | [**`url`**](/http/classes/crud-request#working-with-url) options for executing the request |
 | **connect** | `api-req-connect-options` | `false` | Object with request result handlers. [Details](/http/classes/api-request#connectionoptions) |
 | **sendOptions** | `SendOptions<Response>` | `false` | Allows embedding an `rxjs` `pipe` chain into the request execution process |
-| **requestOptions** | `HttpClient[MethodOptions]` | `false` | The `options` parameter of one of the **get**, **post**, **patch**, **put**, **delete** methods of the `HttpClient` class  |
+| **httpOptions** | `HttpClient[MethodOptions]` | `false` | The `options` parameter of one of the **get**, **post**, **patch**, **put**, **delete** methods of the `HttpClient` class  |
 
 ### SendOptions
 

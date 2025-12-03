@@ -1,0 +1,12 @@
+<!-- <p>graphql works!</p>
+{{ album$.loading() }}
+{{ deleteAlbum$.loading() }} -->
+
+<button (click)="deleteAlbum(1)">Delete Album</button>
+<button (click)="changeCacheOptions()">Change cache options</button>
+<button (click)="toggle()">Show components</button>
+<button (click)="album$.reset()">Reset components</button>
+
+@if (isShow()) {
+  <ng-gql-hub />
+}

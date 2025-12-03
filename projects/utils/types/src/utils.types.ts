@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 import { InjectionToken } from '@angular/core';
 import { ISimple } from '@ngmd/utils/interfaces';
 
@@ -70,3 +72,9 @@ export type TMutableObject<T> = T extends Function
   : {
       -readonly [P in keyof T]: T[P] extends object ? TMutableObject<T[P]> : T[P];
     };
+
+export type IsPartial<T extends object> =
+  T extends Required<{ [K in keyof T]: T[K] }> ? false : true;
+
+export type IsRequired<T extends object> =
+  T extends Required<{ [K in keyof T]: T[K] }> ? true : false;

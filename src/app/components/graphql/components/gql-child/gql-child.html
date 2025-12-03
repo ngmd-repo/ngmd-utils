@@ -1,0 +1,7 @@
+<p>gql-child works!</p>
+
+@if (hub$.getAlbum$.loading()) {
+  Loading...
+} @else {
+  {{ hub$.getAlbum$.value() | json }}
+}

@@ -23,7 +23,7 @@ export class PostRequest<
     return this.http.post<Response>(
       url,
       body,
-      opts?.requestOptions as HttpClientMethodsOptions<'post'>,
+      opts?.httpOptions as HttpClientMethodsOptions<'post'>,
     );
   }
 

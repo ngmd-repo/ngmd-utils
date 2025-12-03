@@ -1,3 +1,4 @@
 {
-  "API_HOST": "https://fakestoreapi.com"
+  "API_HOST": "https://fakestoreapi.com",
+  "API_GRAPHQL_HOST": "https://graphqlzero.almansi.me/api"
 }

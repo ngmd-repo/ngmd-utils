@@ -75,7 +75,7 @@ type FetchRequestMeta<Response> = RequestMeta<Response> & {
 
 | Name | Type | Default value | Required | Context | Description |
 |----------|----------|----------|----------|----------|----------|
-| **initialValue** | `unknown` | `null` | `false` | <span class="tag" success>full</span> | Значение по-умолчанию |
+| **initialValue** | `unknown` | `null` | `false` | <span class="tag" success>full</span> | Значение поля `value` по-умолчанию |
 
 ### FetchRequestOptions
 
