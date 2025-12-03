@@ -57,7 +57,7 @@
     "@angular/cli": "~20.2.2",
     "@angular/compiler-cli": "^20.2.4",
     "@ngmd/git-flow": "~0.0.3",
-    "@ngmd/linter": "file:ngmd-linter-0.0.0.tgz",
+    "@ngmd/linter": "~0.0.11",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^22.12.0",
     "concurrently": "9.2.0",
