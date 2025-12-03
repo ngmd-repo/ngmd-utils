@@ -22,6 +22,7 @@ keyword: StyleGuidesPage
 10. [Classes](/getting-started/style-guides#classes)
 11. [Models](/getting-started/style-guides#models)
 12. [API](/getting-started/style-guides#api)
+12. [GrapQL](/getting-started/style-guides#graphql)
 13. [Service](/getting-started/style-guides#service)
 14. [State](/getting-started/style-guides#state)
 15. [Actions](/getting-started/style-guides#actions)
@@ -412,13 +413,13 @@ export class FormRange {
 
 1. Для работы с **API** использует модуль [**@ngmd/utils/http**](/http)
 
-2. ApiHub должен храниться в папке происходит в папке ***./api***
+2. ApiHub должен храниться в папке ***./api***
 
 3. Именование файла с **ApiHub** должно придерживаться следующих правил:
 
     3.1 Если файл один - ***index.ts***
 
-    3.2 Если более одного файла - `{kebab-case}.api-hub.ts`
+    3.2 Если более одного файла - `{kebab-case}.api.hub.ts`
 
 4. Имя класса **ApiHub** должно придерживаться паттерна ***{PascalCase}ApiHub***:
 
@@ -448,6 +449,80 @@ export class FormRange {
   8.1 В компонентах если эти типы не экспортируются
 
   8.2 В рамках файла **ApiHub** под определением класса, в папке ***./types/index.ts***, если типы экспортируются 
+
+
+### GraphQL
+
+1. Для работы с **GraphQL** использует модуль [**@ngmd/utils/http/graphql**](/graph-ql/introduction)
+
+2. *Query* строки запросов:
+
+    2.1 Должны быть константами
+  
+    2.2 При именовании придерживаться паттерна `${ALL_CAPS}`
+
+    2.3 Должны иметь тип `GqlRequestString`
+
+    2.4 Должны быть шаблонными строками
+
+    2.5 Должны начинаться с фрагмента `#graphql`
+
+    2.6 Именование объекта запроса, если нет других условий, должно повторять имя константы в нотации `mutation ${PascalCase} { ... }`
+
+    ```ts name="./graphql/query/index.ts"
+    import { GqlRequestString } from '@ngmd/utils/http/graphql';
+
+    export const GET_ALBUM: GqlRequestString<'query'> = `#graphql
+      query GetAlbum($id:ID!) {
+        album(id: $id) {
+          id,
+          title,
+          user {
+            id,
+            username
+          }
+        }
+      }
+    `;
+    ```
+
+3. *Query* и сопутствующие запросам типы должны лежать в папке **query** своей сущности и следовать следующим правилам:
+
+    3.1 Если *query* используются в рамках **GqlHub**, то они должны находиться на одном уровне c классом запросов, т.е. по пути ***./graphql/query/index.ts***
+
+    3.2 Если *query* используются в рамках любой другой сущности, то они должны находиться на одном уровне со своей сущностью, т.е. ***./example-component-folder/query/index.ts***, ***./example-feature-folder/query/index.ts*** и т.д.
+
+4. **GqlHub** должен храниться в папке ***./graphql***
+
+5. Именование файла с **GqlHub** должно придерживаться следующих правил:
+
+    5.1 Если файл один - ***index.ts***
+
+    5.2 Если более одного файла - `{kebab-case}.gql.hub.ts`
+
+6. Имя класса **GqlHub** должно придерживаться паттерна ***{PascalCase}GqlHub***:
+
+    ```ts name="./graphql/index.ts"
+    import { ID, QueryRequest, useQuery } from '@ngmd/utils/http/graphql';
+    import { GET_ALBUM } from "./query"
+
+    export class AlbumsGqlHub {
+      public getAlbum: QueryRequest<IAlbum, ID<number>> = useQuery(GET_ALBUM);
+    }
+    ```
+
+7. Имя переменной **GqlHub** при использовании в компоненте должно иметь финскую нотацию и придерживаться паттерна `{camelCase}Hub$` :
+
+    ```ts
+    public albumsHub$: GqlHub<AlbumsGqlHub> = useGqlHub(AlbumsGqlHub);
+    ```
+
+
+8. При создании запроса за рамками **GqlHub**, имя переменной должно иметь финскую нотацию:
+
+    ```ts
+    protected getAlbum$: QueryRequest<IAlbum, ID<number>> = useQuery(GET_ALBUM);
+    ```
 
 ### Service
 

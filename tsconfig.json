@@ -23,7 +23,7 @@
         "src/environments/index.ts"
       ],
       "@ngmd/utils": ["projects/utils"],
-      "@ngmd/utils/*": ["projects/utils/*"],
+      "@ngmd/utils/*": ["projects/utils/*/public-api.ts"],
       "@ng-doc/generated": ["projects/docs/ng-doc/docs/index.ts"],
       "@ng-doc/generated/*": ["projects/docs/ng-doc/docs/*"],
       "@docs-core/*": ["projects/docs/src/app/core/*"],

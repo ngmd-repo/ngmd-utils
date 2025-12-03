@@ -9,7 +9,7 @@ export type GetRequestMeta<Response, Options extends PartialUrlOptions = null> =
   Response,
   Options
 > & {
-  force?: ForceMetaOptions<Options> | true;
+  force?: ForceMetaOptions<Options> | boolean;
 };
 
 export type ForceMetaOptions<Options extends PartialUrlOptions = null> = CrudRequestOptions<

@@ -11,6 +11,8 @@ import { isNullish, replaceTags, selectObjectProps } from '@ngmd/utils/handlers'
 import { ISimple } from '@ngmd/utils/interfaces';
 import { TRequiredArray } from '@ngmd/utils/types';
 
+export { parseExecutionFields } from '.';
+
 export function getFromRoute<T extends object = ISimple<string>>(
   keys: TRequiredArray<keyof T>,
   type: 'params' | 'query',

@@ -98,7 +98,7 @@ class ExampleComponent {
   
   protected createUser(body: TUserCandidate): void {
     this.postUser$.request(body, {
-      requestOptions: {
+      httpOptions: {
         headers: toHttpHeaders({'X-Api-Key': 'YOUR_API_KEY'})
       }
     }).subscribe((user: IUser) => {...})
@@ -129,7 +129,7 @@ class ExampleComponent {
       connect: {
         next: (user: IUser) => console.log(user),
       },
-      requestOptions: {
+      httpOptions: {
         /* HttpClient.PatchMethodOptions */
       },
       sendOptions: {
@@ -147,7 +147,7 @@ class ExampleComponent {
 
 ### reload
 
-Executes an **http** request to the server with previous `urlOptions` and `requestOptions`.
+Executes an **http** request to the server with previous `urlOptions` and `httpOptions`.
 
 **Interface**
 ```ts

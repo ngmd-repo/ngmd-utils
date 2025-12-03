@@ -8,7 +8,7 @@ export class RequestsItemsViewService {
     url: '@/users/{{id}}',
     cache: {
       urlOptions: { params: { id: 3 } },
-      requestOptions: {
+      httpOptions: {
         headers: toHttpHeaders({ 'Test-Header': 'Test Value' }),
       },
     },

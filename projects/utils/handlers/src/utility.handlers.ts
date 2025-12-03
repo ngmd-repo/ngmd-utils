@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-/* eslint-disable @typescript-eslint/prefer-reduce-type-parameter */
+
 import {
   ElementRef,
   InjectionToken,

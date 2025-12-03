@@ -21,7 +21,7 @@ export class ExampleComponent {
   private getUsers$: GetRequest<IUser[]> = useGet({
     url: '@/users',
     force: {
-      requestOptions: {
+      httpOptions: {
         context: toHttpContext(SKIP_HEADERS_MODIFICATION, true),
       },
     },

@@ -5,6 +5,7 @@ import { CookiesKeywords } from './cookies/_keywords';
 import { DBKeywords } from './db/_keywords';
 import { DecoratorsKeywords } from './decorators/_keywords';
 import { DirectivesKeywords } from './directives/_keywords';
+import { GraphQLKeywords } from './graph-ql/_keywords';
 import { HttpKeywords } from './http/_keywords';
 import { InitializerKeywords } from './initializer/_keywords';
 import { InterceptorKeywords } from './interceptor/_keywords';
@@ -17,6 +18,7 @@ import { StrategiesKeywords } from './strategies/_keywords';
 export const DocsKeywords: Record<string, NgDocGlobalKeyword> = Object.assign(
   {},
   HttpKeywords,
+  GraphQLKeywords,
   StateKeywords,
   StoreKeywords,
   StateKeywords,

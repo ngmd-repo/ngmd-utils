@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
 import { AppImports } from './imports';
@@ -13,6 +12,4 @@ import { AppImports } from './imports';
   providers: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
-  ngOnInit(): void {}
-}
+export class AppComponent {}

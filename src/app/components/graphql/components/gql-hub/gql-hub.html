@@ -1,0 +1,13 @@
+<p>gql-hub works!</p>
+@if (hub$.getAlbum$.loading()) {
+  Loading...
+} @else {
+  <button (click)="toggle.toggle()">Toggle</button>
+  <button (click)="deleteAlbum()">Delete</button>
+  <br />
+  {{ hub$.getAlbum$.value() | json }}
+}
+
+@if (toggle.isShow()) {
+  <ng-gql-child />
+}

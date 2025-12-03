@@ -140,7 +140,7 @@ export class ExampleComponent {
   private getUsers$: GetRequest<IUser[]> = useGet({
     url: 'https://fakestoreapi.com/users',
     force: {
-      requestOptions: {
+      httpOptions: {
         headers: toHttpHeaders({ "SOME_HEADER_KEY": "SOME_HEADER_VALUE" }),
       },
     },
@@ -167,7 +167,7 @@ export class ExampleComponent {
   private getUsers$: GetRequest<IUser[]> = useGet({
     url: 'https://fakestoreapi.com/users',
     force: {
-      requestOptions: {
+      httpOptions: {
         params: toHttpParams({ skip: 1, limit: 20 }),
       },
     },
@@ -195,7 +195,7 @@ export class ExampleComponent {
   private getUsers$: GetRequest<IUser[]> = useGet({
     url: 'https://fakestoreapi.com/users',
     force: {
-      requestOptions: {
+      httpOptions: {
         context: toHttpContext(SKIP_REQUEST_MODIFICATION, true),
       },
     },

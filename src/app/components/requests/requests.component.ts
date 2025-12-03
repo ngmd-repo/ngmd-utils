@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core';
 import { IUser, TOperatorForkResponse } from '@data/users';
 import {
   ApiHub,
@@ -43,7 +42,6 @@ export class TestApiHub {
   ],
 })
 export class RequestsComponent {
-  private httpClient: HttpClient = inject(HttpClient);
   public get$: GetRequest<IUser>;
   public post$: PostRequest<any, IUser>;
   public patch$: PatchRequest<any, IUser>;

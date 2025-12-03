@@ -6,7 +6,6 @@ keyword: ApiHubPage
 
 ---
 
-
 ## Описание
 
 Менеджер для объединения и централизованного хранения запросов с общим доступом в рамках DI. Расширяет hub-класс менеджер-свойством **hub** с менеджер-классом `ApiHubManager`, предоставляя дополнительные методы общего управления классом
@@ -93,6 +92,8 @@ class ApiHubManager<Hub extends TApiHub<Hub>> {
 
 ### TApiHub
 
+Тип, которому должен соответствовать hub-класс
+
 **Интерфейс**
 
 ```ts
@@ -101,11 +102,9 @@ type TApiHub<Hub extends object> = {
 };
 ```
 
-**Описание**
-
-Тип, которому должен соответствовать hub-класс
-
 ### ApiHubConfig
+
+Объект конфигурации, используемый в функциях-инжекторах `useRootApiHub`, `useApiHub`
 
 **Интерфейс**
 
@@ -147,6 +146,10 @@ import {
   GetRequest,
   usePost,
   PostRequest,
+  usePut,
+  PutRequest,
+  useDelete,
+  DeleteRequest,
 } from '@ngmd/utils/http';
 import { IUser, ... } from '../types';
 
@@ -158,9 +161,7 @@ export class UsersApiHub {
 }
 ```
 
-
 **Регистрация** 
-
 
 ```ts name="example.component.ts" {8}
 import { provideApiHub } from '@ngmd/utils/http';
@@ -175,8 +176,6 @@ import { UsersApiHub } from './users.api.hub';
 })
 export class ExampleComponent {}
 ```
-
-
 
 **Инжектирование и использование**
 
@@ -200,7 +199,7 @@ export class ExampleComponent implements OnInit {
 ```
 
 ```ts name="child-example.component.ts" group="example-component"
-import { ApiHub, provideApiHub, useApiHub, routeParams } from '@ngmd/utils/http';
+import { ApiHub, useApiHub } from '@ngmd/utils/http';
 import { UsersApiHub } from './users.api.hub';
 
 @Component({/**/})

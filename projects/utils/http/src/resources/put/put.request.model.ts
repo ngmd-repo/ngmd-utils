@@ -20,11 +20,7 @@ export class PutRequest<
   public request(body: Body, opts?: PutRequestOptions<Options>): Observable<Response> {
     const url: string = this.makeUrl((opts as RequestUrlOptions<Options>)?.urlOptions);
 
-    return this.http.put<Response>(
-      url,
-      body,
-      opts?.requestOptions as HttpClientMethodsOptions<'put'>,
-    );
+    return this.http.put<Response>(url, body, opts?.httpOptions as HttpClientMethodsOptions<'put'>);
   }
 
   public send(

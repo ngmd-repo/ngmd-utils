@@ -76,7 +76,7 @@ type CacheRequestMeta<Response, Options extends UrlOptions = null> = FetchReques
 ```ts
 type CacheMetaOptions<Options extends UrlOptions = null> = {
   urlOptions?: Options,
-  requestOptions?: HttpClient.GetMethodOptions,
+  httpOptions?: HttpClient.GetMethodOptions,
 }
 ```
 
@@ -87,7 +87,7 @@ type CacheMetaOptions<Options extends UrlOptions = null> = {
 ```ts
 type SetWithRequest<Response> = {
   withRequest: true | {
-    requestOptions?: HttpClient.GetMethodOptions,
+    httpOptions?: HttpClient.GetMethodOptions,
     connect?: ConnectionOptions<Response>
   }
 };
@@ -102,7 +102,7 @@ type SetWithRequest<Response> = {
 type SetUrlOptions<Response, Options extends UrlOptions> = {
   urlOptions: Options,
   withRequest?: true | {
-    requestOptions?: HttpClient.GetMethodOptions,
+    httpOptions?: HttpClient.GetMethodOptions,
     connect?: ConnectionOptions<Response>
   }
 };

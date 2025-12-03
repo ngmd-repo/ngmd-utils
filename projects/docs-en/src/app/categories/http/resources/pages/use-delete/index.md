@@ -42,7 +42,7 @@ class DeleteRequest<
 ```
 
 > **NOTE**
-> The **Body** generic allows you to type the request body in the *body* field of the *requestOptions* options object.
+> The **Body** generic allows you to type the request body in the *body* field of the *httpOptions* options object.
 
 ## Types
 

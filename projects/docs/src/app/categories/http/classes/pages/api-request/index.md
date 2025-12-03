@@ -26,7 +26,6 @@ keyword: ApiRequestPage
   - `DeleteRequest`
   - `OperatorRequest`
 
-
 ## Интерфейс
 
 ```typescript
@@ -101,7 +100,7 @@ class ExampleComponent {
   
   protected createUser(body: TUserCandidate): void {
     this.postUser$.request(body, {
-      requestOptions: {
+      httpOptions: {
         headers: toHttpHeaders({'X-Api-Key': 'YOUR_API_KEY'})
       }
     }).subscribe((user: IUser) => {...})
@@ -133,7 +132,7 @@ class ExampleComponent {
       connect: {
         next: (user: IUser) => console.log(user),
       },
-      requestOptions: {
+      httpOptions: {
         /* HttpClient.PatchMethodOptions */
       },
       sendOptions: {
@@ -151,7 +150,7 @@ class ExampleComponent {
 
 ### reload
 
-Выполняет **http** запрос на сервер с предыдущими `urlOptions` и `requestOptions`  
+Выполняет **http** запрос на сервер с предыдущими `urlOptions` и `httpOptions`  
 
 **Интерфейс**
 ```ts
