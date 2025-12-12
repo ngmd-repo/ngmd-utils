@@ -1,9 +1,10 @@
 export { AfkDirective } from './src/afk-event.directive';
+export { BackgroundImageDirective } from './src/background-image.directive';
 export { ClosestDirective } from './src/closest.directive';
 export { CopyDirective } from './src/copy.directive';
 export { UtilsDirectivesModule } from './src/directives.module';
+export * from './src/download';
 export { FactoryResolveDirective } from './src/factory-resolve.directive';
-export { FocusDirective } from './src/focus.directive';
 export { InsertDirective } from './src/insert.directive';
 export { IntersectionDirective } from './src/intersection.directive';
 export { LetDirective } from './src/let.directive';
@@ -17,5 +18,3 @@ export { SwitchContainDefaultDirective } from './src/switch-contain-default.dire
 export { ToggleCssClassDirective } from './src/toggle-css-class.directive';
 export { TrackByKeyDirective } from './src/track-by-key.directive';
 export { ViewContainerDirective } from './src/view-container.directive';
-export { BackgroundImageDirective } from './src/background-image.directive';
-export * from './src/download';
