@@ -7,7 +7,6 @@ import { serializeCrudMeta } from './crud-request.handlers';
 import {
   CrudRequestMeta,
   CrudSendOptions,
-  HttpOptionsMap,
   PartialUrlOptions,
   RequestUrl,
   SendOptions,
@@ -39,7 +38,7 @@ export abstract class CrudRequest<Response = null> extends ApiRequest<Response> 
 
   protected override sendRequest(
     request$: Observable<Response>,
-    opts?: CrudSendOptions<keyof HttpOptionsMap, Response, PartialUrlOptions>,
+    opts?: CrudSendOptions<Response, PartialUrlOptions>,
   ): Subscription {
     const { stream = NOOP } = assign<SendOptions<Response>['sendOptions']>(
       this.meta.sendOptions,

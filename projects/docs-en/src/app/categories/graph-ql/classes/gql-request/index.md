@@ -103,7 +103,7 @@ type GqlRequestOptions<Variables extends object = null> = {
 | Name | Type | Default value | Required | Description |
 |----------|----------|----------|----------|----------|
 | **variables** | `object` | `null` | `false` | Object with variables for GraphQL request |
-| **httpOptions** | `string` | `null` | `false` | Options for *http* request of **[POST]** type. More details by [link](/http/classes/crud-request#httprequestoptions) |
+| **httpOptions** | `string` | `null` | `false` | Options for *http* request of **[POST]** type. More details by [link](/http/classes/crud-request#httpoptions) |
 
 > **NOTE**
 > If the generic type `Variables` was not passed, then the `variables` field will be absent from the object. Strict typing is maintained.

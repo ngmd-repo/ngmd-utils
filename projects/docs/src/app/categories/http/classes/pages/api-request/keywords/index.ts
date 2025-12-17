@@ -18,7 +18,7 @@ export const HttpApiRequestKeywords: Record<string, NgDocGlobalKeyword> = Object
     'RequestMeta',
     'RequestUrl',
     'RequestStrategy',
-    'HttpRequestOptions',
+    'HttpOptions',
     'SendRequestOptions',
   ]),
 );

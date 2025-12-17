@@ -95,7 +95,7 @@ export type GqlRequestMeta<Type extends GqlRequestType, Response> = RequestMeta<
 ```ts
 type GqlRequestOptions<Variables extends object = null> = {
   variables?: Variables;
-  httpOptions?: HttpOptionsMap['post'];
+  httpOptions?: HttpOptions;
 };
 ```
 **Описание**
@@ -103,7 +103,7 @@ type GqlRequestOptions<Variables extends object = null> = {
 | Name | Type | Default value | Required | Description |
 |----------|----------|----------|----------|----------|
 | **variables** | `object` | `null` | `false` |  Объект с переменными для GraphQL запроса |
-| **httpOptions** | `string` | `null` | `false` | Опции для *http* запроса типа **[POST]**. Подробнее по [ссылке](/http/classes/crud-request#httprequestoptions)  |
+| **httpOptions** | `HttpOptions` | `null` | `false` | Опции для *http* запроса типа **[POST]**. Подробнее по [ссылке](/http/classes/crud-request#httpoptions)  |
 
 > **NOTE**
 > Если generic тип `Variables` не был передан, то поле `variables` в объекте будет отсутствовать. Соблюдается строгая типизация.

@@ -3,12 +3,7 @@ import { deepCopyWithGuard } from '@ngmd/utils/handlers';
 import { Observable, Subscription } from 'rxjs';
 
 import { ConnectionOptions } from '../../types';
-import {
-  HttpClientMethodsOptions,
-  PartialUrlOptions,
-  RequestUrlOptions,
-  TArgsWithoutBody,
-} from '../crud';
+import { PartialUrlOptions, RequestUrlOptions, TArgsWithoutBody } from '../crud';
 import { CrudRequest } from '../crud/crud-request.class';
 import { FetchRequestMeta, FetchRequestOptions, FetchSendOptions } from './fetch-request.types';
 
@@ -30,7 +25,7 @@ export abstract class FetchRequest<
   public request(opts?: FetchRequestOptions<Options>): Observable<Response> {
     const url: string = this.makeUrl((opts as RequestUrlOptions<Options>)?.urlOptions);
 
-    return this.http.get<Response>(url, opts?.httpOptions as HttpClientMethodsOptions<'get'>);
+    return this.http.get<Response>(url, opts?.httpOptions as any) as Observable<Response>;
   }
 
   public send(

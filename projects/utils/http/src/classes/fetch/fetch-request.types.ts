@@ -10,13 +10,10 @@ export type FetchRequestMeta<Response, Options extends PartialUrlOptions = null>
   initialValue?: TExtendValue<Response>;
 };
 
-export type FetchRequestOptions<Options extends PartialUrlOptions = null> = CrudRequestOptions<
-  'get',
-  Options
->;
+export type FetchRequestOptions<Options extends PartialUrlOptions = null> =
+  CrudRequestOptions<Options>;
 
 export type FetchSendOptions<Response, Options extends PartialUrlOptions = null> = CrudSendOptions<
-  'get',
   Response,
   Options
 >;

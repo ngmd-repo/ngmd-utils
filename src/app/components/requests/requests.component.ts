@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core';
-import { IUser, TOperatorForkResponse } from '@data/users';
+import { IUser, TGetUserUrlOptions, TOperatorForkResponse } from '@data/users';
 import {
   ApiHub,
+  CacheRequest,
   DeleteRequest,
   GetRequest,
   OperatorRequest,
@@ -11,6 +12,7 @@ import {
   provideApiHub,
   PutRequest,
   useApiHub,
+  useCache,
   useGet,
   useOperator,
 } from '@ngmd/utils/http';
@@ -42,7 +44,13 @@ export class TestApiHub {
   ],
 })
 export class RequestsComponent {
-  public get$: GetRequest<IUser>;
+  public get$: GetRequest<IUser> = useGet({
+    url: '',
+    force: true,
+  });
+  public cache$: CacheRequest<IUser, TGetUserUrlOptions> = useCache({
+    url: '',
+  });
   public post$: PostRequest<any, IUser>;
   public patch$: PatchRequest<any, IUser>;
   public put$: PutRequest<any, IUser>;
@@ -59,5 +67,55 @@ export class RequestsComponent {
     },
   });
 
-  private test(): void {}
+  private test(): void {
+    this.cache$.request({
+      urlOptions: { params: { id: '' } },
+      httpOptions: {
+        credentials: 'include',
+        responseType: 'blob',
+        observe: 'events',
+      },
+      // withRequest: {
+      //   httpOptions: {
+      //     responseType: 'blob',
+      //     headers: {},
+      //   },
+      // },
+    });
+    this.get$.request({
+      httpOptions: {
+        credentials: 'include',
+        responseType: 'blob',
+        observe: 'events',
+      },
+    });
+    this.post$.request(null, {
+      httpOptions: {
+        credentials: 'include',
+        responseType: 'blob',
+        observe: 'events',
+      },
+    });
+    this.patch$.request(null, {
+      httpOptions: {
+        credentials: 'include',
+        responseType: 'blob',
+        observe: 'events',
+      },
+    });
+    this.put$.request(null, {
+      httpOptions: {
+        credentials: 'include',
+        responseType: 'blob',
+        observe: 'events',
+      },
+    });
+    this.delete$.request({
+      httpOptions: {
+        credentials: 'include',
+        responseType: 'blob',
+        observe: 'events',
+      },
+    });
+  }
 }
