@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { HttpClient } from '@angular/common/http';
+import { HttpContext, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injector } from '@angular/core';
-import { TExtractKeys } from '@ngmd/utils/types';
 import { OperatorFunction } from 'rxjs';
 
 import { RequestConnection, RequestMeta } from '../../types';
@@ -22,11 +21,7 @@ export type SendOptions<Response> = {
   };
 };
 
-export type CrudSendOptions<
-  RequestType extends keyof HttpOptionsMap,
-  Response,
-  Options extends PartialUrlOptions,
-> = HttpClientRequestOptions<RequestType> &
+export type CrudSendOptions<Response, Options extends PartialUrlOptions> = HttpConfig &
   RequestConnection<Response> &
   SendOptions<Response> &
   TUrlOptions<Options>;
@@ -55,6 +50,35 @@ export type PickUrlOptions<Options extends PartialUrlOptions = null> = Options e
       ? Pick<Options, 'query'>
       : {};
 
+export type HttpOptions = {
+  headers?: HttpHeaders | Record<string, string[] | string>;
+  context?: HttpContext;
+  params?:
+    | HttpParams
+    | Record<string, ReadonlyArray<boolean | number | string> | boolean | number | string>;
+  reportProgress?: boolean;
+  withCredentials?: boolean;
+  credentials?: RequestCredentials;
+  keepalive?: boolean;
+  priority?: RequestPriority;
+  cache?: RequestCache;
+  mode?: RequestMode;
+  redirect?: RequestRedirect;
+  referrer?: string;
+  integrity?: string;
+  referrerPolicy?: ReferrerPolicy;
+  timeout?: number;
+  responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
+  observe?: 'body' | 'events' | 'response';
+};
+
+export type HttpConfig = {
+  httpOptions?: HttpOptions;
+};
+
+// ! Пока не удалять. Пришлось отключить типизацию ниже, т.к. TS поломал логику извлечения параметром Omit<Parameters<HttpClient['get']>[1], 'responseType' | 'observe'>
+
+/* 
 export type HttpOverrideOptionsType = {
   responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
   observe?: 'body' | 'events' | 'response';
@@ -84,18 +108,16 @@ export type HttpOptionsMap = {
   delete: HttpRequestOptions<'delete'>;
 };
 
+// HttpClientRequestOptions HttpClientMethod HttpRequestOptions
+
+*/
+
 export type RequestUrlOptions<T extends PartialUrlOptions = PartialUrlOptions> = {
   urlOptions: PickUrlOptions<T>;
 };
 
-export type HttpClientRequestOptions<Type extends keyof HttpOptionsMap> = {
-  httpOptions?: HttpOptionsMap[Type];
-};
-
-export type CrudRequestOptions<
-  T extends keyof HttpOptionsMap,
-  Options extends PartialUrlOptions,
-> = HttpClientRequestOptions<T> & TUrlOptions<Options>;
+export type CrudRequestOptions<Options extends PartialUrlOptions> = HttpConfig &
+  TUrlOptions<Options>;
 
 export type TArgsWithBody<
   Body,

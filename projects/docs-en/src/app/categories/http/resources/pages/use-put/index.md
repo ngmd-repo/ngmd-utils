@@ -45,7 +45,7 @@ class PutRequest<
 
 ### PutRequestOptions
 
-Interface and field descriptions [here](/http/classes/api-request#httprequestoptions)
+Interface and field descriptions [here](/http/classes/api-request#httpoptions)
 
 ### PutSendOptions
 

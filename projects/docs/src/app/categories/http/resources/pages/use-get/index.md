@@ -71,7 +71,7 @@ type GetRequestMeta<Response, Options extends UrlOptions = null> = FetchRequestM
 ```ts
 type ForceMetaOptions<Options extends UrlOptions = null> = {
   urlOptions?: Options,
-  httpOptions?: HttpClient?.GetMethodOptions,
+  httpOptions?: HttpOptions,
 };
 ```
 
@@ -82,7 +82,7 @@ type ForceMetaOptions<Options extends UrlOptions = null> = {
 ```ts
 type GetLoadOptions<Response = any, Options extends UrlOptions = null> = {
   urlOptions?: Options,
-  httpOptions?: HttpClient?.GetMethodOptions,
+  httpOptions?: HttpOptions,
   sendOptions?: {
     stream: SendOptionsPipe<Response>
   },

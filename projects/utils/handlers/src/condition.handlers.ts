@@ -35,7 +35,8 @@ export function isJSType<const T extends TJSDataType>(
 }
 
 export function isObject(obj: unknown): obj is object {
-  return String(obj) === '[object Object]' && !Array.isArray(obj);
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
+  return isNotNullish(obj) && !Array.isArray(obj) && String(obj) === '[object Object]';
 }
 
 export function isEveryJSType(type: TJSDataType, ...values: any[]): boolean {

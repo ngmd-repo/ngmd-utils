@@ -48,7 +48,7 @@ class DeleteRequest<
 
 ### DeleteRequestOptions
 
-Интерфейс и описание полей [тут](/http/classes/api-request#httprequestoptions)
+Интерфейс и описание полей [тут](/http/classes/api-request#httpoptions)
 
 
 ### DeleteSendOptions

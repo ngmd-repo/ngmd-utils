@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { ApiRequest, HttpClientMethodsOptions } from '@ngmd/utils/http';
+import { ApiRequest } from '@ngmd/utils/http';
 import { Observable, Subscription, switchMap } from 'rxjs';
 
 import {
@@ -40,8 +40,8 @@ export class GraphQLRequest<
     }
 
     return this.http
-      .post(this.meta.url, body, options?.httpOptions as HttpClientMethodsOptions<'post'>)
-      .pipe<T>(switchMap(this.responseHandler));
+      .post(this.meta.url, body, options?.httpOptions as any)
+      .pipe<T>(switchMap(this.responseHandler as any));
   }
 
   public send(options?: GqlSendOptions<Response, Variables>): Subscription {

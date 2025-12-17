@@ -216,7 +216,7 @@ type CrudRequestMeta<
 ```ts
 type CrudRequestOptions = {
   urlOptions: UrlOptions,
-  httpOptions?: HttpRequestOptions<HttpClientMethod>
+  httpOptions?: HttpOptions
 }
 ```
 
@@ -225,7 +225,7 @@ type CrudRequestOptions = {
 | Name | Type | Required | Description |
 |----------|----------|----------|----------|
 | **urlOptions** | `UrlOptions` | `true` при наличии `urlOptions.params`, иначе `false` | [**`url`**](/http/classes/crud-request#работа-с-url) опции для выполнения запроса |
-| **httpOptions** | `HttpRequestOptions<HttpClientMethod>` | `false` | Параметр `options`, одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient` |
+| **httpOptions** | `HttpOptions` | `false` | Параметр `options`, одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient` |
 
 ### UrlOptions
 
@@ -247,44 +247,52 @@ type RequestUrlOptions<T = UrlOptions> = {
 }
 ```
 
-### HttpClientRequestOptions
+### HttpConfig
 
 Содержит поле **httpOptions**, которое равно типу параметра `options` одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`.
 
 Используется при вызове методов [`request`](/http/classes/api-request#request) и [`send`](/http/classes/api-request#send) у наследников класса класса `*CrudRequestPage`
 
 ```ts
-type HttpClientRequestOptions = {
-  httpOptions?: HttpRequestOptions<HttpClientMethod>;
+type HttpConfig = {
+  httpOptions?: HttpOptions;
 };
 ```
 
-### HttpClientMethod
-
-Содержит ключ одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`, с которыми работает `CrudRequestPage`
-
-```ts
-type HttpClientMethod = Extract<
-  HttpClient,
-  'delete' | 'get' | 'patch' | 'post' | 'put'
->;
-```
-
-### HttpRequestOptions
+### HttpOptions
 
 Содержит `options` одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`.
 
 ```ts
-type HttpRequestOptions<T extends HttpClientMethod> = HttpClient<T>[httpOptions]
+type HttpOptions = {
+  headers?: HttpHeaders | Record<string, string[] | string>;
+  context?: HttpContext;
+  params?:
+    | HttpParams
+    | Record<string, ReadonlyArray<boolean | number | string> | boolean | number | string>;
+  reportProgress?: boolean;
+  withCredentials?: boolean;
+  credentials?: RequestCredentials;
+  keepalive?: boolean;
+  priority?: RequestPriority;
+  cache?: RequestCache;
+  mode?: RequestMode;
+  redirect?: RequestRedirect;
+  referrer?: string;
+  integrity?: string;
+  referrerPolicy?: ReferrerPolicy;
+  timeout?: number;
+  responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
+  observe?: 'body' | 'events' | 'response';
+}
 ```
 
 **Использование**
 
 ```ts
-const get$: GetRequest<IUser> = useGet('example-url');
-const httpOptions: HttpRequestOptions<'get'> = {
-  observe: 'events',
-  reportProgress: true,
+const get$: GetRequest<HttpResponse<IUser>> = useGet('example-url');
+const httpOptions: HttpOptions = {
+  observe: 'response',
 };
 
 this.get$.request({ httpOptions }).subscribe(/**/)
@@ -302,7 +310,7 @@ this.get$.send({ httpOptions });
 type CrudSendOptions<Response> = {
   urlOptions: UrlOptions,
   connect?: ConnectionOptions<Response>,
-  httpOptions?: HttpClient.MethodOptions,
+  httpOptions?: HttpOptions,
   sendOptions?: {
     stream: SendOptionsPipe<Response>
   }
@@ -316,7 +324,7 @@ type CrudSendOptions<Response> = {
 | **urlOptions** | `UrlOptions` | `true` при наличии `urlOptions.params`, иначе `false` | [**`url`**](/http/classes/crud-request#работа-с-url) опции для выполнения запроса |
 | **connect** | `api-req-connect-options` | `false` | Объект, с обработчиками результатов запроса. [Подробности](/http/classes/api-request#connectionoptions) |
 | **sendOptions** | `SendOptions<Response>` | `false` | Позволяет встраивать цепочку `pipe` из `rxjs` в процесс выполнения запроса |
-| **httpOptions** | `HttpClient[MethodOptions]` | `false` | Параметр `options`, одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`  |
+| **httpOptions** | `HttpOptions` | `false` | Параметр `options`, одного из методов **get**, **post**, **patch**, **put**, **delete** класса `HttpClient`  |
 
 
 ### SendOptions

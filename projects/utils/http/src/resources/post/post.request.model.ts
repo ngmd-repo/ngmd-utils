@@ -1,11 +1,6 @@
 import { Observable, Subscription } from 'rxjs';
 
-import {
-  HttpClientMethodsOptions,
-  PartialUrlOptions,
-  RequestUrlOptions,
-  TArgsWithBody,
-} from '../../classes';
+import { PartialUrlOptions, RequestUrlOptions, TArgsWithBody } from '../../classes';
 import { CrudRequest } from '../../classes/crud/crud-request.class';
 import { PostRequestOptions, PostSendOptions } from './post.request.types';
 
@@ -20,11 +15,7 @@ export class PostRequest<
   public request(body: Body, opts?: PostRequestOptions<Options>): Observable<Response> {
     const url: string = this.makeUrl((opts as RequestUrlOptions<Options>)?.urlOptions);
 
-    return this.http.post<Response>(
-      url,
-      body,
-      opts?.httpOptions as HttpClientMethodsOptions<'post'>,
-    );
+    return this.http.post<Response>(url, body, opts?.httpOptions as any) as Observable<Response>;
   }
 
   public send(

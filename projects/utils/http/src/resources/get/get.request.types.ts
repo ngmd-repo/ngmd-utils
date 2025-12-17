@@ -12,10 +12,8 @@ export type GetRequestMeta<Response, Options extends PartialUrlOptions = null> =
   force?: ForceMetaOptions<Options> | boolean;
 };
 
-export type ForceMetaOptions<Options extends PartialUrlOptions = null> = CrudRequestOptions<
-  'get',
-  Options
->;
+export type ForceMetaOptions<Options extends PartialUrlOptions = null> =
+  CrudRequestOptions<Options>;
 
 export type GetLoadOptions<Response = any, Options = any> = Omit<
   FetchSendOptions<Response, Options>,

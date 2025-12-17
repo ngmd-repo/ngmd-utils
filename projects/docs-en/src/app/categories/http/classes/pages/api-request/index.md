@@ -130,7 +130,7 @@ class ExampleComponent {
         next: (user: IUser) => console.log(user),
       },
       httpOptions: {
-        /* HttpClient.PatchMethodOptions */
+        /* HttpOptions */
       },
       sendOptions: {
         stream: pipe(tap((user: IUser) => console.log(user))),

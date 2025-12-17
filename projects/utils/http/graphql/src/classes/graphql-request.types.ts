@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { HttpOptionsMap, RequestConnection, RequestMeta } from '@ngmd/utils/http';
+import { HttpOptions, RequestConnection, RequestMeta } from '@ngmd/utils/http';
 
 export type ParseGqlRequestVariables<Variables extends object = null> = Variables extends null
   ? {}
@@ -11,7 +11,7 @@ export type GqlRequestVariables<Variables extends object = null> = {
 };
 
 export type GqlHttpOptions = {
-  httpOptions?: HttpOptionsMap['post'];
+  httpOptions?: HttpOptions;
 };
 
 export type GqlBody<Type extends GqlRequestType, Variables extends object> = {
@@ -19,10 +19,8 @@ export type GqlBody<Type extends GqlRequestType, Variables extends object> = {
   variables?: Variables;
 };
 
-export type GqlRequestOptions<Variables extends object = null> =
-  ParseGqlRequestVariables<Variables> & {
-    httpOptions?: HttpOptionsMap['post'];
-  };
+export type GqlRequestOptions<Variables extends object = null> = GqlHttpOptions &
+  ParseGqlRequestVariables<Variables>;
 export type GqlSendOptions<
   Response,
   Variables extends object = null,

@@ -79,7 +79,7 @@ type FetchRequestMeta<Response> = RequestMeta<Response> & {
 
 ### FetchRequestOptions
 
-Interface and field descriptions [here](/http/classes/api-request#httprequestoptions)
+Interface and field descriptions [here](/http/classes/api-request#httpoptions)
 
 ### FetchSendOptions
 

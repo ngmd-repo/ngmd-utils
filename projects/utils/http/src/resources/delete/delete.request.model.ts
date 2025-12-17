@@ -1,11 +1,6 @@
 import { Observable, Subscription } from 'rxjs';
 
-import {
-  HttpClientMethodsOptions,
-  PartialUrlOptions,
-  RequestUrlOptions,
-  TArgsWithoutBody,
-} from '../../classes';
+import { PartialUrlOptions, RequestUrlOptions, TArgsWithoutBody } from '../../classes';
 import { CrudRequest } from '../../classes/crud/crud-request.class';
 import { DeleteRequestOptions, DeleteSendOptions } from './delete.request.types';
 
@@ -20,7 +15,7 @@ export class DeleteRequest<
   public request(opts?: DeleteRequestOptions<Options>): Observable<Response> {
     const url: string = this.makeUrl((opts as RequestUrlOptions<Options>)?.urlOptions);
 
-    return this.http.delete<Response>(url, opts?.httpOptions as HttpClientMethodsOptions<'delete'>);
+    return this.http.delete<Response>(url, opts?.httpOptions as any) as Observable<Response>;
   }
 
   public send(
