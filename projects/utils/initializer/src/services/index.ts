@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/dot-notation */
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { replaceTagsInObjectValues } from '@ngmd/utils/handlers';
 import { PlatformService } from '@ngmd/utils/services';
 import { Observable } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
@@ -8,7 +9,9 @@ import { map, tap } from 'rxjs/operators';
 
 import { INITIALIZE_ENVIRONMENT } from '../features/initialize-environment';
 import { INITIALIZE_HANDLER, InitializeHandler } from '../features/initialize-handler';
-import { InitializeState } from '../features/initialize-state/initialize-state.service';
+import { InitializeState } from '../features/initialize-state/services';
+import { INITIALIZE_STATE_OPTIONS } from '../features/initialize-state/tokens';
+import { InitializeStateOptions } from '../features/initialize-state/types';
 import { InitializeMeta } from '../interfaces/initialize-meta.interface';
 
 @Injectable({
@@ -16,6 +19,9 @@ import { InitializeMeta } from '../interfaces/initialize-meta.interface';
 })
 export class InitializeService {
   private initializeHandler: InitializeHandler<object> = inject(INITIALIZE_HANDLER, {
+    optional: true,
+  });
+  private initializeStateOptions: InitializeStateOptions = inject(INITIALIZE_STATE_OPTIONS, {
     optional: true,
   });
   private initializeState: InitializeState<object> = inject(InitializeState, {
@@ -49,6 +55,9 @@ export class InitializeService {
   }
 
   private withState(dataJSON: object): void {
+    if (this.initializeStateOptions?.tags) {
+      dataJSON = replaceTagsInObjectValues(dataJSON, this.initializeStateOptions.tags);
+    }
     this.initializeState.config.set(dataJSON);
     this.initializeState['isLoadedConfig'].set(true);
   }

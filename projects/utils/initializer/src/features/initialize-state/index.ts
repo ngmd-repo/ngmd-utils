@@ -1,13 +1,31 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { TUseClassProvider } from '@ngmd/utils/types';
+import { Provider } from '@angular/core';
+import { makeCombineProvider } from '@ngmd/utils/src';
+import { TUseClassProvider, TUseCombineProvider } from '@ngmd/utils/types';
 
-import { InitializeState } from './initialize-state.service';
+import { InitializeState } from './services';
+import { INITIALIZE_STATE_OPTIONS } from './tokens';
+import { InitializeStateOptions } from './types';
 
-export * from './initialize-state.service';
+export * from './services';
 
-export type InitializeStateFeature<T extends object = object> = TUseClassProvider<
-  InitializeState<T>
->;
-export function withInitializeState(): InitializeStateFeature {
-  return InitializeState as unknown as InitializeStateFeature;
+export type InitializeStateFeature<T extends object = object> = [
+  TUseClassProvider<InitializeState<T>>,
+];
+
+export function withInitializeState(
+  opts?: InitializeStateOptions | (() => InitializeStateOptions),
+): InitializeStateFeature {
+  const providers: Provider[] = [InitializeState];
+
+  if (opts) {
+    const provider: TUseCombineProvider<InitializeStateOptions> = makeCombineProvider(
+      opts,
+      INITIALIZE_STATE_OPTIONS,
+    );
+
+    providers.push(provider);
+  }
+
+  return providers as unknown as InitializeStateFeature;
 }

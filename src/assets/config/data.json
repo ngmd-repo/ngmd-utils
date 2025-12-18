@@ -1,4 +1,7 @@
 {
   "API_HOST": "https://fakestoreapi.com",
-  "API_GRAPHQL_HOST": "https://graphqlzero.almansi.me/api"
+  "API_GRAPHQL_HOST": "https://graphqlzero.almansi.me/api",
+  "API_URL": "https://api.{{domain}}/v2/api",
+  "WS_HOST": "https://api.{{domain}}",
+  "CDN_HOST": "https://static.{{domain}}"
 }

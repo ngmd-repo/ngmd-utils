@@ -1,16 +1,22 @@
-import { toObservable } from '@angular/core/rxjs-interop';
+import { HttpErrorResponse } from '@angular/common/http';
 import { isJSType } from '@ngmd/utils/handlers';
-import { filter, firstValueFrom, Observable, take } from 'rxjs';
+import { catchError, firstValueFrom, map, Observable, of, shareReplay, takeUntil, tap } from 'rxjs';
 
 import { PartialUrlOptions, RequestUrl, TArgsWithoutBody } from '../../classes';
 import { FetchRequest, FetchSendOptions } from '../../classes/fetch';
-import { GetLoadOptions, GetLoadValue, GetRequestMeta } from './get.request.types';
+import type {
+  GetLoadOptions,
+  GetRequestMeta,
+  LoadResult,
+  LoadSubscription,
+} from './get.request.types';
 
 export class GetRequest<Response, Options extends PartialUrlOptions = null> extends FetchRequest<
   Response,
   Options
 > {
   protected override meta: GetRequestMeta<Response>;
+  private load$: Observable<LoadResult<Response>>;
 
   constructor(urlOrMeta: GetRequestMeta<Response, Options> | RequestUrl) {
     super(urlOrMeta);
@@ -33,26 +39,48 @@ export class GetRequest<Response, Options extends PartialUrlOptions = null> exte
     this.send(options);
   }
 
-  private sendLoadRequest(opts: GetLoadOptions<Response, Options>): void {
-    if (!(this.loading() || this.loaded()))
-      this.send(opts as unknown as FetchSendOptions<Response, Options>);
-  }
-
   public load<Opts extends GetLoadOptions<Response, Options>>(
     ...opts: TArgsWithoutBody<Opts, Options>
-  ): GetLoadValue<Opts, Response>;
+  ): Opts['subLike'] extends 'promise'
+    ? Promise<LoadResult<Response>>
+    : Observable<LoadResult<Response>>;
   public load<Opts extends GetLoadOptions<Response, Options>>(
     opts?: Opts,
-  ): GetLoadValue<Opts, Response> {
-    this.sendLoadRequest(opts);
+  ): Opts['subLike'] extends 'promise'
+    ? Promise<LoadResult<Response>>
+    : Observable<LoadResult<Response>> {
+    if (opts?.repeat || !this.load$) {
+      this.load$ = this.request(opts as unknown as FetchSendOptions<Response, Options>).pipe(
+        takeUntil(this.abort$),
+        map(response => ({ status: 'success', data: response }) as const),
+        tap({
+          next: ({ data }) => {
+            this.value.set(data);
+            this.error$.set(null);
+          },
+          error: ({ data }) => {
+            this.value.set(null);
+            this.error$.set(data);
+          },
+          finalize: () => this.loaded.set(true),
+        }),
+        catchError((e: HttpErrorResponse) => of({ status: 'failed', data: e } as const)),
+        shareReplay(1),
+      );
+    }
 
-    const request$: Observable<Response> = toObservable(this.value, {
-      injector: this.context,
-    }).pipe(filter(_ => this.loaded()));
-    const value$ = (
-      opts?.valueLike === 'promise' ? firstValueFrom(request$) : request$.pipe(take(1))
-    ) as GetLoadValue<Opts, Response>;
+    const request$ = opts?.subLike === 'promise' ? firstValueFrom(this.load$) : this.load$;
 
-    return value$;
+    return request$ as LoadSubscription<Opts, Response>;
+  }
+
+  public override clear(): void {
+    this.load$ = null;
+    super.clear();
+  }
+
+  public override reset(): void {
+    this.load$ = null;
+    super.reset();
   }
 }

@@ -35,7 +35,7 @@ class GetRequest<Response, Options extends UrlOptions = null> extends FetchReque
   constructor(urlOrMeta: GetRequestMeta<Response, Options> | RequestUrl<UrlOptions>) {}
 
   // * Additional methods
-  public load(opts?: GetLoadOptions<Response, Options>): Promise<Response> | Observable<Response>
+  public load(opts?: GetLoadOptions<Response, Options>): LoadResult<Response>;
 }
 ```
 
@@ -43,7 +43,7 @@ class GetRequest<Response, Options extends UrlOptions = null> extends FetchReque
 
 | Name | ReturnType | Description |
 |----------|----------|----------|
-| **load** | `Promise<Response>` \| `Observable<Response>` | Makes a server request if the request object is **NOT** in `loaded` status and returns an async stream (type depends on **valueLike**) awaiting the result of this request. If the request object is in `loaded` status, the async stream returns the current `value`.<br>[Details](/http/resources/use-get#load) |
+| **load** | `LoadResult<Response>` | Makes a server request if the request object is **NOT** in `loaded` status and returns an async stream (value depends on **subLike** field) awaiting the result of this request. If the request object is in `loaded` status, the async stream returns the last value.<br>[Details](/http/resources/use-get#load) |
 
 ## Types
 
@@ -82,12 +82,37 @@ type ForceMetaOptions<Options extends UrlOptions = null> = {
 type GetLoadOptions<Response = any, Options extends UrlOptions = null> = {
   urlOptions?: Options,
   httpOptions?: HttpOptions,
+  repeat?: boolean,
   sendOptions?: {
     stream: SendOptionsPipe<Response>
   },
-  valueLike?: 'observer' | 'promise'
+  subLike?: 'observer' | 'promise'
 };
 ```
+
+**Description**
+
+| Name | Type | Required | Default | Description |
+|----------|----------|----------|----------|----------|
+| **subLike** | `"observer" \| "promise"` | `false` | `observer` | Return the request result as `Observable` or `Promise` |
+| **repeat** | `boolean` | `false` | `false` | Repeat the request even if the value has already been received |
+
+### LoadResult
+
+**Interface**
+
+```ts
+type LoadResult<Response> =
+  | { status: 'failed'; data: HttpErrorResponse }
+  | { status: 'success'; data: Response };
+```
+
+**Description**
+
+| Name | Type | Description |
+|----------|----------|----------|
+| **status** | `"failed" \| "success"` | Status |
+| **data** | `Response \| HttpErrorResponse` | Data, depending on status |
 
 ## Use cases
 
@@ -157,15 +182,24 @@ class UserComponent implements OnInit {
 
   private async loadUser(): Promise<void> {
     const id: string = this.route.snapshot.paramMap.get('id');
-    const user: IUser = await this.userService.user$.load({
+    const result: LoadResult<IUser> = await this.userService.user$.load({
       urlOptions: { params: { id } },
-      valueLike: 'promise',
+      subLike: 'promise',
     });
 
-    console.log(user); // Data loaded
+    if(result.status === 'success') {
+      console.log(result.data as IUser); // Data loaded
+    } else {
+      console.log(result.data as HttpErrorResponse) // Error occurred during request execution
+    }
   }
 }
 ```
+
+> **WARNING**
+> When executing the load method, the request's error and value fields are synchronized with the request results.
+> In case of `success`, value will be assigned the data field value with Response. error will be assigned **null** if the previous request failed <br>
+> In case of `failed`, value will be assigned **null**, error will be assigned the `HttpErrorResponse` value
 
 ### force
 

@@ -287,16 +287,26 @@ export function toTag(str: string): string {
   return `{{${str}}}`;
 }
 
-export function replaceTags(str: string, tagsObj: TagsMap): string {
-  if (isNullish(str) || isNullish(tagsObj)) return str;
+export function replaceTags(str: string, tagsMap: TagsMap): string {
+  if (isNullish(str) || isNullish(tagsMap)) return str;
 
-  return Object.entries(tagsObj).reduce((accum: string, [key, value]) => {
+  return Object.entries(tagsMap).reduce((accum: string, [key, value]) => {
     const regex: RegExp = new RegExp(toTag(key), 'gi');
 
     if (isJSType(value, 'function')) value = (value as any)();
 
     return accum.replace(regex, value as string);
   }, str);
+}
+
+export function replaceTagsInObjectValues<T extends object>(obj: T, tagsMap: TagsMap): T {
+  return Object.entries(obj).reduce<T>((accum: T, [key, value]) => {
+    if (isJSType(value, 'string')) value = replaceTags(value, tagsMap);
+
+    (accum as any)[key] = value;
+
+    return accum;
+  }, {} as T);
 }
 
 export function getEnumMap<T, V = number>(enumObj: T): { keys: string[]; values: V[] } {

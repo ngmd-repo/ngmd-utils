@@ -1,6 +1,6 @@
 import { signal, untracked, WritableSignal } from '@angular/core';
 import { deepCopyWithGuard } from '@ngmd/utils/handlers';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 
 import { ConnectionOptions } from '../../types';
 import { PartialUrlOptions, RequestUrlOptions, TArgsWithoutBody } from '../crud';
@@ -32,7 +32,13 @@ export abstract class FetchRequest<
     ...args: TArgsWithoutBody<FetchSendOptions<Response, Options>, Options>
   ): Subscription;
   public send(opts?: FetchSendOptions<Response, Options>): Subscription {
-    return this.sendRequest(this.request(opts), opts);
+    const request$: Observable<Response> = this.request(opts).pipe(
+      tap({
+        finalize: () => this.loaded.set(true),
+      }),
+    );
+
+    return this.sendRequest(request$, opts);
   }
 
   protected override handleNext(response: Response, observer?: ConnectionOptions<Response>): void {
@@ -40,7 +46,6 @@ export abstract class FetchRequest<
     if (this.meta.transform) value = this.meta.transform(value);
 
     this.value.set(value);
-    this.loaded.set(true);
     super.handleNext(response, observer);
   }
 
@@ -51,10 +56,6 @@ export abstract class FetchRequest<
   public override clear(): void {
     super.clear();
     this.value.set(this.initialValue);
-  }
-
-  public override reset(): void {
-    super.reset();
     this.loaded.set(false);
   }
 }
