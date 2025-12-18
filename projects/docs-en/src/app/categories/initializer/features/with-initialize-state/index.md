@@ -102,7 +102,7 @@ Original configuration object with **domain** tag:
 
 Provide an object with the value for the **domain** tag in the provider function:
 
-```ts name="app.config.ts" {11,13}
+```ts name="app.config.ts" {11-14}
 import {
   provideUtilsInitializer,
   withInitializeState,
@@ -114,6 +114,7 @@ export const AppConfig: ApplicationConfig = {
       environment,
       withInitializeState({
         tags: {
+          // https://example.com?domain=qa4
           domain: new URL(location.href).searchParams.get('domain'),
         },
       }),
@@ -126,9 +127,9 @@ Configuration object after **domain** tag replacement:
 
 ```ts
 {
-  "API_HOST": "{%raw%}https://api.qa4/v2/api{%endraw%}",
-  "WS_HOST": "{%raw%}wss://api.qa4{%endraw%}",
-  "CDN_HOST": "{%raw%}https://static.qa4{%endraw%}"
+  "API_HOST": "https://api.qa4/v2/api",
+  "WS_HOST": "wss://api.qa4",
+  "CDN_HOST": "https://static.qa4"
 }
 ```
 

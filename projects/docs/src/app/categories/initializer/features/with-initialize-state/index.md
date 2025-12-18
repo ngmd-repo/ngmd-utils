@@ -95,14 +95,14 @@ class InitializeState<T extends object> {
 ```json name="data.json"
 {
   "API_HOST": "{%raw%}https://api.{{domain}}/v2/api{%endraw%}",
-  "WS_HOST": "{%raw%}wss://api.{{domain}}",
-  "CDN_HOST": "{%raw%}https://static.{{domain}}"
+  "WS_HOST": "{%raw%}wss://api.{{domain}}{%endraw%}",
+  "CDN_HOST": "{%raw%}https://static.{{domain}}{%endraw%}"
 }
 ```
 
 Предоставляем объект со значение для тэга **domain** в функции провайдере:
 
-```ts name="app.config.ts" {11,13}
+```ts name="app.config.ts" {11-14}
 import {
   provideUtilsInitializer,
   withInitializeState,
@@ -114,6 +114,7 @@ export const AppConfig: ApplicationConfig = {
       environment,
       withInitializeState({
         tags: {
+          // https://example.com?domain=qa4
           domain: new URL(location.href).searchParams.get('domain'),
         },
       }),
@@ -126,9 +127,9 @@ export const AppConfig: ApplicationConfig = {
 
 ```ts
 {
-  "API_HOST": "{%raw%}https://api.qa4/v2/api{%endraw%}",
-  "WS_HOST": "{%raw%}wss://api.qa4{%endraw%}",
-  "CDN_HOST": "{%raw%}https://static.qa4{%endraw%}"
+  "API_HOST": "https://api.qa4/v2/api",
+  "WS_HOST": "wss://api.qa4",
+  "CDN_HOST": "https://static.qa4"
 }
 ```
 

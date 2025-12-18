@@ -135,8 +135,11 @@ const userResolver: ResolveFn<Hero>= (
   route: ActivatedRouteSnapshot,
 ): Observable<IUser> => {
   const id: string = route.paramMap.get('id');
+  const userService: UserService = inject(UserService);
 
-  return inject(UserService).user$.load({ urlOptions: { params: { id } } });
+  return userService.user$.load({ urlOptions: { params: { id } } }).pipe(
+    map(({ data }: LoadResult<IUser>) => data as IUser)
+  );
 };
 ```
 
