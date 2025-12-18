@@ -30,7 +30,7 @@ export type RequestMeta<Response> = OnDestroyOptions &
     transform?: (response: any) => Response;
   };
 
-export type LoadValueType = 'observer' | 'promise';
+export type SubscriptionType = 'observer' | 'promise';
 
 export type DestroyConfig<T = boolean> = {
   abort?: T;

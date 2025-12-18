@@ -14,11 +14,16 @@ keyword: WithInitializeStatePage
 **Интерфейс**
 
 ```ts
-function withInitializeState(): InitializeStateFeature
+function withInitializeState(opts?: InitializeStateOptions | (() => InitializeStateOptions)): InitializeStateFeature
 ```
 
-**Использование**
+**Параметры**
 
+| Name | Type | Required | Description |
+|----------|----------|----------|----------|
+| **opts** | `InitializeStateOptions \| (() => InitializeStateOptions)` | `false` | Объект опций, расширяющих поведение провайдера |
+
+**Использование**
 
 Подробный гайд по внедрению описан [здесь](/initializer/introduction#от-angular-18-и-выше)
 
@@ -67,3 +72,66 @@ class InitializeState<T extends object> {
 | **config** | `T extends object` | `null` | Объект конфигурационного файла |
 | **loaded** | `Signal<boolean>` | `false` | Статус загрузки конфигурационного файла |
 | **whenLoaded$** | `Signal<boolean>` | `false` | При подписке, когда будет загружен конфигурационный файла, выдает значение `true`. |
+
+
+## Types
+
+### InitializeStateOptions
+
+**Описание**
+
+| Name | Type | Default | Description |
+|----------|----------|----------|----------|
+| **tags** | `TagsMap` | `null` | Объект с полями-тэгами, которые будут использованы для замены динамических значений в строковых свойствах конфигурации. [Пример](/initializer/features/with-initialize-state#initializestateoptionstags) |
+
+
+## Use Cases
+
+### InitializeStateOptions.tags
+
+Исходный объект конфигурации c тэгом **domain**:
+
+
+```json name="data.json"
+{
+  "API_HOST": "{%raw%}https://api.{{domain}}/v2/api{%endraw%}",
+  "WS_HOST": "{%raw%}wss://api.{{domain}}",
+  "CDN_HOST": "{%raw%}https://static.{{domain}}"
+}
+```
+
+Предоставляем объект со значение для тэга **domain** в функции провайдере:
+
+```ts name="app.config.ts" {11,13}
+import {
+  provideUtilsInitializer,
+  withInitializeState,
+} from '@ngmd/utils/initializer';
+
+export const AppConfig: ApplicationConfig = {
+  providers: [
+    provideUtilsInitializer(
+      environment,
+      withInitializeState({
+        tags: {
+          domain: new URL(location.href).searchParams.get('domain'),
+        },
+      }),
+    ),
+  ]
+}
+```
+
+Объект конфигурации после замены тэга **domain**:
+
+```ts
+{
+  "API_HOST": "{%raw%}https://api.qa4/v2/api{%endraw%}",
+  "WS_HOST": "{%raw%}wss://api.qa4{%endraw%}",
+  "CDN_HOST": "{%raw%}https://static.qa4{%endraw%}"
+}
+```
+
+> **NOTE**
+> Доступ к объекту конфигурации можно получить в свойстве `config` сервиса `InitializeState`
+

@@ -49,7 +49,7 @@ abstract class FetchRequest<Response = null> extends CrudRequest<Response> {
 
 | Name | Type | Default | Description |
 |----------|----------|----------|----------|
-| **loaded** | `WritableSignal<boolean>` | `false` | Становится `true`, если был выполнен хотя бы один успешный запрос |
+| **loaded** | `WritableSignal<boolean>` | `false` | Становится `true`, если был выполнен хотя бы один запрос. При **error** также становится `true` |
 | **value** | `Signal<Response>` | `null` | Значение **response**. Обновляется при каждом, успешно выполненном, запросе |
 
 ## Расширенные методы

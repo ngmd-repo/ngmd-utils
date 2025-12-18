@@ -10,6 +10,7 @@ export const HttpGetRequestKeywords: Record<string, NgDocGlobalKeyword> = makeMo
     'GetRequestMeta',
     'ForceMetaOptions',
     'GetLoadOptions',
+    'LoadResult',
     'load',
     'force',
   ],

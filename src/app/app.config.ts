@@ -31,7 +31,14 @@ export const AppConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     provideRootState(RootState),
     provideRootDB(RootDB),
-    provideUtilsInitializer(environment, withInitializeState()),
+    provideUtilsInitializer(
+      environment,
+      withInitializeState({
+        tags: {
+          domain: new URL(location.href).searchParams.get('domain'),
+        },
+      }),
+    ),
     provideBrowserStorage(),
     provideGql(
       withGqlConfig({

@@ -6,15 +6,22 @@ Imported from `@ngmd/utils/initializer`
 
 ---
 
+
 ## Description
 
-*Feature function* that defines the strategy for loading a configuration file into the *InitializeState* object.
+*Feature function* that defines the strategy for loading a configuration file into the *InitializeState* object 
 
 **Interface**
 
 ```ts
-function withInitializeState(): InitializeStateFeature
+function withInitializeState(opts?: InitializeStateOptions | (() => InitializeStateOptions)): InitializeStateFeature
 ```
+
+**Parameters**
+
+| Name | Type | Required | Description |
+|----------|----------|----------|----------|
+| **opts** | `InitializeStateOptions \| (() => InitializeStateOptions)` | `false` | Options object that extends provider behavior |
 
 **Usage**
 
@@ -64,4 +71,66 @@ class InitializeState<T extends object> {
 |----------|----------|----------|----------|
 | **config** | `T extends object` | `null` | Configuration file object |
 | **loaded** | `Signal<boolean>` | `false` | Configuration file loading status |
-| **whenLoaded$** | `Signal<boolean>` | `false` | Emits `true` when the configuration file is loaded (when subscribed). |
+| **whenLoaded$** | `Observable<boolean>` | `false` | Emits `true` value when subscribed after the configuration file is loaded |
+
+
+## Types
+
+### InitializeStateOptions
+
+**Description**
+
+| Name | Type | Default | Description |
+|----------|----------|----------|----------|
+| **tags** | `TagsMap` | `null` | Object with tag fields that will be used to replace dynamic values in string properties of the configuration |
+
+
+## Use Cases
+
+### InitializeStateOptions.tags
+
+Original configuration object with **domain** tag:
+
+
+```json name="data.json"
+{
+  "API_HOST": "{%raw%}https://api.{{domain}}/v2/api{%endraw%}",
+  "WS_HOST": "{%raw%}wss://api.{{domain}}{%endraw%}",
+  "CDN_HOST": "{%raw%}https://static.{{domain}}{%endraw%}"
+}
+```
+
+Provide an object with the value for the **domain** tag in the provider function:
+
+```ts name="app.config.ts" {11,13}
+import {
+  provideUtilsInitializer,
+  withInitializeState,
+} from '@ngmd/utils/initializer';
+
+export const AppConfig: ApplicationConfig = {
+  providers: [
+    provideUtilsInitializer(
+      environment,
+      withInitializeState({
+        tags: {
+          domain: new URL(location.href).searchParams.get('domain'),
+        },
+      }),
+    ),
+  ]
+}
+```
+
+Configuration object after **domain** tag replacement:
+
+```ts
+{
+  "API_HOST": "{%raw%}https://api.qa4/v2/api{%endraw%}",
+  "WS_HOST": "{%raw%}wss://api.qa4{%endraw%}",
+  "CDN_HOST": "{%raw%}https://static.qa4{%endraw%}"
+}
+```
+
+> **NOTE**
+> Access to the configuration object can be obtained through the `config` property of the `InitializeState` service
