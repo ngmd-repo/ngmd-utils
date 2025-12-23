@@ -1,10 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { isNullish } from '@ngmd/utils/handlers';
 
 @Pipe({
-  name: 'symbollimit',
+  name: 'symbolLimit',
 })
 export class SymbolLimit implements PipeTransform {
   public transform(value: number | string, limit: number, endsWith: string = '...'): string {
+    if (isNullish(value)) return null;
+
     const stringValue = String(value);
 
     if (stringValue.length > limit) {

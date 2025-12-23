@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { isObject } from '@ngmd/utils/handlers';
 
 @Pipe({
   name: 'pick',
@@ -8,11 +9,15 @@ export class PickPipe implements PipeTransform {
     value: T,
     keys: K,
   ): Pick<T, K[number]> {
-    return keys.reduce<Pick<T, K[number]>>((accum, key: keyof T) => {
-      accum[key] = value[key];
+    if (!isObject(value)) return null;
 
-      return accum;
-      // eslint-disable-next-line @typescript-eslint/prefer-reduce-type-parameter, @typescript-eslint/consistent-type-assertions
-    }, {} as Pick<T, K[number]>);
+    return keys.reduce<Pick<T, K[number]>>(
+      (accum, key: keyof T) => {
+        accum[key] = value[key];
+
+        return accum;
+      },
+      {} as Pick<T, K[number]>,
+    );
   }
 }

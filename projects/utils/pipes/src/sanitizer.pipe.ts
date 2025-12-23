@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 type TSanitizer = 'html' | 'resource-url' | 'script' | 'style' | 'url';
@@ -7,7 +7,7 @@ type TSanitizer = 'html' | 'resource-url' | 'script' | 'style' | 'url';
   name: 'sanitize',
 })
 export class SanitizerPipe implements PipeTransform {
-  constructor(private sanitizer: DomSanitizer) {}
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
 
   public transform(value: unknown, type: TSanitizer): SafeResourceUrl | null {
     if (!value) return null;

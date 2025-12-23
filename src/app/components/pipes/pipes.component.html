@@ -1,0 +1,5 @@
+<div>{{ excludePropsValue | excludeProps: ['a'] | json }}</div>
+<div>{{ includesValue | includes: 1 }}</div>
+<div>{{ mapValue | map: mapFn }}</div>
+<div>{{ pickValue | pick: ['a'] | json }}</div>
+<div [innerHTML]="sanitizerValue | sanitize: 'html'"></div>

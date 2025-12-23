@@ -1,11 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { isNullish } from '@ngmd/utils/handlers';
 
 @Pipe({
   name: 'numberTransform',
 })
 export class NumberTransformPipe implements PipeTransform {
   public transform(value: number | string): number | string {
-    if (!value) return null;
+    if (isNullish(value)) return null;
 
     value = Number(value);
 
