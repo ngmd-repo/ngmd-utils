@@ -9,6 +9,6 @@ export class PickMapPipe implements PipeTransform {
       return items.map(item => item[pickedProp]);
     }
 
-    return [];
+    return null;
   }
 }
