@@ -570,7 +570,7 @@ transform(value: string, regExp: RegExp | string, replacement: string = ''): str
 
 ### SanitizerPipe
 
-Безопасно преобразует строку в безопасный HTML, URL, стиль, скрипт или URL ресурса, в зависимости от указанного типа.
+Использует функции преобразования источников при помощи методов `bypassSecurityTrust*` класса `DomSanitizer`
 
 **Интерфейс**
 
@@ -581,13 +581,16 @@ transform(value: unknown, type: TSanitizer): SafeResourceUrl | null
 **Использование** 
 
 ```html name="example.html" group="sanitize-pipe" active
-<!-- Безопасно преобразует строку в HTML -->
+<!-- Будет вызван DomSanitizer.bypassSecurityTrustHtml('<p>Text</p>') -->
 <div [innerHTML]="'<p>Text</p>' | sanitize:'html'"></div>
 ```
 
 ```ts name="sanitizer.type.ts" group="sanitize-pipe"
 type TSanitizer = 'html' | 'resource-url' | 'script' | 'style' | 'url';
 ```
+
+> **Alert**
+> Использовать с максимальной осторожностью, т.к. непроверенные источники подвергают ваш код возможности проведения **XSS** атаки
 
 ### SplitStringPipe
 
